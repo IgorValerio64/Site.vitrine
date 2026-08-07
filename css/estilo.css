@@ -1,0 +1,314 @@
+/* =====================================================================
+   Vitrine — página inicial (marca, sobre, eventos) + catálogo.
+   A cor da marca vem do config.js (--marca); aqui ficam só as regras.
+   Pensado primeiro para o celular, que é de onde vem a maior parte
+   dos acessos deste tipo de site.
+   ===================================================================== */
+:root {
+  --marca:      #c2410c;
+  --bg:         #faf7f2;
+  --card:       #ffffff;
+  --texto:      #1f1b16;
+  --suave:      #6b6257;
+  --borda:      #e8e0d5;
+  --whats:      #25d366;
+  --whats-esc:  #128c4a;
+  --raio:       14px;
+  --sombra:     0 1px 2px rgba(60,48,30,.05), 0 4px 14px rgba(60,48,30,.06);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--texto);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+h1, h2, h3 { margin: 0; }
+
+.container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 18px; }
+
+/* ---------------------------------------------------------------- TOPO */
+header {
+  background: var(--card);
+  border-bottom: 1px solid var(--borda);
+  position: sticky; top: 0; z-index: 30;
+}
+.topo-inner {
+  display: flex; align-items: center; gap: 20px;
+  padding: 12px 18px;
+}
+
+.marca { display: flex; align-items: center; gap: 12px; flex: none; }
+.logo {
+  width: 46px; height: 46px; border-radius: 50%; flex: none;
+  object-fit: cover; border: 2px solid var(--borda); background: var(--bg);
+}
+.logo-texto {
+  display: grid; place-items: center;
+  background: var(--marca); border-color: var(--marca);
+  color: #fff; font-weight: 800; font-size: 16px; letter-spacing: .02em;
+}
+.marca-nome { font-size: 19px; font-weight: 800; letter-spacing: -.02em; }
+
+.menu { display: flex; gap: 22px; margin-left: auto; }
+.menu a {
+  font-weight: 700; font-size: 14.5px; color: var(--suave);
+  padding: 6px 0; border-bottom: 2px solid transparent;
+  transition: color .12s, border-color .12s;
+}
+.menu a:hover { color: var(--texto); }
+.menu a.ativo { color: var(--marca); border-bottom-color: var(--marca); }
+
+/* ---------------------------------------------------------------- BOTÕES */
+.btn-whats {
+  display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+  background: var(--whats); color: #fff;
+  padding: 9px 16px; border-radius: 999px;
+  font-weight: 700; font-size: 14px; white-space: nowrap;
+  transition: background .15s, transform .1s;
+}
+.btn-whats:hover { background: var(--whats-esc); }
+.btn-whats:active { transform: scale(.97); }
+.btn-whats svg { width: 18px; height: 18px; flex: none; }
+.btn-whats.grande { padding: 12px 22px; font-size: 15px; }
+.btn-whats.bloco { width: 100%; }
+
+.btn-marca {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--marca); color: #fff;
+  padding: 12px 24px; border-radius: 999px;
+  font-weight: 700; font-size: 15px;
+  transition: filter .15s, transform .1s;
+}
+.btn-marca:hover { filter: brightness(1.1); }
+.btn-marca:active { transform: scale(.97); }
+
+/* ---------------------------------------------------------------- CAPA */
+.capa {
+  background: var(--card);
+  border-bottom: 1px solid var(--borda);
+  padding: 60px 0 56px;
+  text-align: center;
+}
+.capa h1 {
+  font-size: 42px; font-weight: 800; letter-spacing: -.035em;
+  color: var(--marca); line-height: 1.1;
+}
+.capa-slogan {
+  margin: 14px auto 0; max-width: 560px;
+  color: var(--suave); font-size: 17px; line-height: 1.5;
+}
+.capa-acoes {
+  display: flex; gap: 12px; justify-content: center;
+  margin-top: 28px; flex-wrap: wrap;
+}
+
+/* ---------------------------------------------------------------- SOBRE */
+.sobre { padding: 52px 0; }
+.bloco-sobre {
+  background: var(--card); border: 1px solid var(--borda);
+  border-radius: var(--raio); box-shadow: var(--sombra);
+  padding: 34px 36px;
+}
+.bloco-sobre h2 {
+  font-size: 26px; font-weight: 800; letter-spacing: -.02em;
+  margin-bottom: 16px;
+}
+.bloco-sobre p {
+  margin: 0 0 14px; color: var(--suave);
+  font-size: 15.5px; line-height: 1.65; max-width: 760px;
+}
+.bloco-sobre p:last-of-type { margin-bottom: 0; }
+
+.numeros {
+  display: flex; gap: 40px; flex-wrap: wrap;
+  margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--borda);
+}
+.numero strong {
+  display: block; font-size: 30px; font-weight: 800;
+  color: var(--marca); letter-spacing: -.03em;
+}
+.numero span { color: var(--suave); font-size: 13.5px; }
+
+/* ---------------------------------------------------------------- SEÇÕES */
+.eventos { padding: 8px 0 60px; }
+.secao-cabecalho { margin-bottom: 22px; }
+.secao-cabecalho h2 {
+  font-size: 26px; font-weight: 800; letter-spacing: -.02em;
+}
+.secao-cabecalho p { margin: 6px 0 0; color: var(--suave); font-size: 14.5px; }
+
+/* ---------------------------------------------------------------- LOJAS */
+.lojas { padding: 0 0 60px; }
+
+.grade-lojas {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+}
+
+/* O cartão inteiro é o link — área de clique grande, que no celular faz
+   diferença. O botão dentro é visual, não um segundo link. */
+.card-loja {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--card); border: 1px solid var(--borda);
+  border-radius: var(--raio); box-shadow: var(--sombra);
+  padding: 20px 22px;
+  transition: transform .14s, box-shadow .14s, border-color .14s;
+}
+.card-loja:hover {
+  transform: translateY(-3px); border-color: var(--marca);
+  box-shadow: 0 8px 26px rgba(60,48,30,.12);
+}
+.card-loja:active { transform: scale(.99); }
+
+.loja-icone {
+  width: 52px; height: 52px; border-radius: 14px; flex: none;
+  display: grid; place-items: center;
+  background: var(--bg); color: var(--marca); border: 1px solid var(--borda);
+}
+.loja-icone svg { width: 26px; height: 26px; }
+
+.loja-texto { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.loja-texto strong { font-size: 16.5px; font-weight: 700; }
+.loja-desc { color: var(--suave); font-size: 13.5px; line-height: 1.45; }
+
+.btn-marca.pequeno { padding: 9px 18px; font-size: 13.5px; flex: none; }
+
+/* ---------------------------------------------------------------- FILTROS */
+.filtros {
+  background: var(--bg);
+  position: sticky; top: 71px; z-index: 20;
+  padding: 16px 0 10px;
+  border-bottom: 1px solid var(--borda);
+}
+.busca {
+  width: 100%; background: var(--card); border: 1px solid var(--borda);
+  border-radius: 999px; padding: 12px 18px; font-size: 15px;
+  color: var(--texto); outline: none; font-family: inherit;
+}
+.busca:focus { border-color: var(--marca); }
+.busca::placeholder { color: #a99e90; }
+
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.chip {
+  border: 1px solid var(--borda); background: var(--card); color: var(--suave);
+  padding: 7px 15px; border-radius: 999px; cursor: pointer;
+  font-weight: 700; font-size: 13px; font-family: inherit;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.chip:hover { color: var(--texto); }
+.chip.ativo { background: var(--marca); border-color: var(--marca); color: #fff; }
+
+.contador { display: block; margin-top: 10px; color: var(--suave); font-size: 12.5px; }
+
+/* ---------------------------------------------------------------- GRADE */
+main { padding-bottom: 10px; }
+.container > .grade, main > .container > .grade { padding: 26px 0 50px; }
+
+.grade {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+
+.card {
+  background: var(--card); border: 1px solid var(--borda);
+  border-radius: var(--raio); overflow: hidden;
+  box-shadow: var(--sombra);
+  display: flex; flex-direction: column;
+  transition: transform .14s, box-shadow .14s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 26px rgba(60,48,30,.12);
+}
+.card.encerrado { opacity: .6; }
+.card.encerrado:hover { transform: none; box-shadow: var(--sombra); }
+
+.card-midia { position: relative; aspect-ratio: 4 / 3; background: #f1ece4; }
+.card-midia img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Sem foto: bloco com a inicial. */
+.sem-foto { width: 100%; height: 100%; display: grid; place-items: center; }
+.sem-foto span {
+  font-size: 52px; font-weight: 800;
+  color: rgba(0,0,0,.34); text-transform: uppercase;
+}
+
+.etiqueta {
+  position: absolute; top: 10px; left: 10px;
+  background: var(--marca); color: #fff;
+  font-size: 10.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+}
+.etiqueta.cinza { background: var(--suave); }
+
+.card-corpo { padding: 14px 15px 15px; display: flex; flex-direction: column; flex: 1; }
+.card-cat {
+  font-size: 10.5px; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--marca);
+}
+.card-corpo h3 { margin: 5px 0 0; font-size: 15.5px; font-weight: 700; line-height: 1.3; }
+.card-local { margin: 4px 0 0; color: var(--suave); font-size: 12.5px; font-weight: 600; }
+.card-desc { margin: 7px 0 0; color: var(--suave); font-size: 13px; line-height: 1.45; }
+
+.card-rodape {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-top: auto; padding-top: 14px;
+}
+.preco { font-size: 18px; font-weight: 800; }
+.preco.consulta { font-size: 14px; font-weight: 700; color: var(--suave); }
+
+.vazio { grid-column: 1 / -1; text-align: center; color: var(--suave); padding: 50px 0; }
+
+/* ---------------------------------------------------------------- RODAPÉ */
+footer { background: var(--card); border-top: 1px solid var(--borda); padding: 28px 0; }
+.rodape-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 18px; flex-wrap: wrap;
+}
+footer p { margin: 5px 0 0; color: var(--suave); font-size: 13.5px; }
+footer a:hover { color: var(--marca); }
+
+/* ---------------------------------------------------------------- CELULAR */
+@media (max-width: 780px) {
+  .topo-inner { flex-wrap: wrap; gap: 10px 14px; padding: 12px 18px; }
+  .marca-nome { font-size: 17px; }
+  .logo { width: 40px; height: 40px; }
+  .menu { margin-left: auto; gap: 16px; order: 3; width: 100%; }
+  .menu a { font-size: 13.5px; }
+  .topo-inner > .btn-whats { margin-left: auto; padding: 8px 14px; font-size: 13px; }
+
+  .capa { padding: 40px 0 38px; }
+  .capa h1 { font-size: 30px; }
+  .capa-slogan { font-size: 15px; }
+  .capa-acoes { flex-direction: column; }
+  .capa-acoes > * { width: 100%; }
+
+  .sobre { padding: 34px 0; }
+  .bloco-sobre { padding: 24px 20px; }
+  .bloco-sobre h2, .secao-cabecalho h2 { font-size: 21px; }
+  .bloco-sobre p { font-size: 14.5px; }
+  .numeros { gap: 24px; }
+  .numero strong { font-size: 24px; }
+
+  .grade-lojas { grid-template-columns: 1fr; }
+  .card-loja { flex-wrap: wrap; padding: 18px; gap: 14px; }
+  .loja-icone { width: 44px; height: 44px; }
+  .btn-marca.pequeno { width: 100%; }
+
+  .filtros { top: 0; }
+  .grade { grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 12px; }
+  .card-corpo { padding: 12px; }
+  .card-corpo h3 { font-size: 14px; }
+  .card-desc { display: none; }   /* na tela pequena, nome e preço bastam */
+  .preco { font-size: 16px; }
+  .card-rodape { flex-direction: column; align-items: stretch; gap: 8px; }
+  .rodape-inner { flex-direction: column; align-items: stretch; }
+}
