@@ -66,8 +66,8 @@ header {
 
 .marca { display: flex; align-items: center; gap: 12px; flex: none; }
 
-/* Logo em imagem: sem moldura nem recorte. A marca da Guns Core é um
-   triângulo — dentro de um círculo, as pontas seriam cortadas. */
+/* Logo em imagem: sem moldura nem recorte. Marcas com formato próprio
+   (um triângulo, por exemplo) teriam as pontas cortadas num círculo. */
 img.logo {
   height: 62px; width: auto; max-width: 95px; flex: none;
   object-fit: contain;

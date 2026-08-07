@@ -26,7 +26,7 @@ export function corDoNome(nome) {
 }
 
 // Usa NEGOCIO.iniciais quando definido: nem toda marca assina com as iniciais
-// literais do nome (Guns Core assina GSC).
+// literais do nome.
 export const iniciais = (nome) =>
   NEGOCIO.iniciais
   || nome.trim().split(/\s+/).slice(0, 2).map((p) => p[0]).join('').toUpperCase();

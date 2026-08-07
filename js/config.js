@@ -6,23 +6,26 @@
 // =====================================================================
 
 export const NEGOCIO = {
-  nome: 'Guns Core',
-  slogan: 'Armas, munições e acessórios para o atirador habilitado',
+  // >>> IDENTIDADE REMOVIDA ENQUANTO O SITE ESTA PUBLICO COM DADOS DE
+  // >>> EXEMPLO. Para devolver: preencha `nome`, coloque o arquivo da marca
+  // >>> em img/ e aponte em `logo`, e ajuste `iniciais` se a assinatura da
+  // >>> marca for diferente das iniciais do nome.
+  nome: 'Nome da Empresa',
+  slogan: '',
 
   // Logo do topo. Coloque o arquivo em img/ e escreva 'img/logo.png'.
   // Deixando vazio (ou se o arquivo faltar), aparece um círculo com as iniciais.
-  logo: 'img/logo.png',
+  logo: '',
 
-  // Iniciais usadas quando não há logo. Sem isso, sairia 'GC' (de Guns Core),
-  // mas a marca assina GSC.
-  iniciais: 'GSC',
+  // Iniciais usadas quando não há logo. Vazio deixa o site derivar do nome.
+  iniciais: '',
 
   // Número com código do país (55) + DDD + número, só dígitos.
   // Ex.: (11) 98765-4321  ->  5511987654321
   whatsapp: '5511999999999',   // <<< TROCAR PELO NÚMERO REAL
 
   // Opcionais: deixe '' para não aparecer.
-  instagram: '',            // só o usuário, sem @  (ex.: 'gunscore')
+  instagram: '',            // só o usuário, sem @  (ex.: 'nomedaloja')
   endereco: '',             // ex.: 'Rua das Flores, 123 - Centro'
   horario: 'Seg a Sex, 9h às 18h · Sáb, 9h às 13h',
 
@@ -62,12 +65,12 @@ export const AVISO_LEGAL =
 // =====================================================================
 
 export const SOBRE = {
-  titulo: 'Sobre a Guns Core',
+  titulo: 'Sobre a empresa',
   paragrafos: [
-    'A Guns Core é uma loja especializada em armas de fogo, munições e '
-    + 'acessórios, com atendimento voltado a CACs, agentes de segurança e '
-    + 'cidadãos habilitados. Trabalhamos com produtos de procedência '
-    + 'comprovada e orientação técnica em cada etapa.',
+    'Loja especializada em armas de fogo, munições e acessórios, com '
+    + 'atendimento voltado a CACs, agentes de segurança e cidadãos '
+    + 'habilitados. Trabalhamos com produtos de procedência comprovada e '
+    + 'orientação técnica em cada etapa.',
 
     'Nossa equipe acompanha o cliente desde a escolha do equipamento até a '
     + 'documentação necessária para a aquisição. Fale com a gente pelo '
@@ -272,4 +275,4 @@ export const MENSAGEM_EVENTO = (evento) =>
   + `\nComo faço para participar?`;
 
 export const MENSAGEM_GERAL = () =>
-  `Olá! Vi o site da Guns Core e gostaria de mais informações.`;
+  `Olá! Vi o site e gostaria de mais informações.`;
