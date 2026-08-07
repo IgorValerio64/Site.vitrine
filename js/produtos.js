@@ -39,8 +39,8 @@ const cardProduto = (p) => {
           <span class="preco ${p.preco > 0 ? '' : 'consulta'}">${preco}</span>
           <a class="btn-whats" href="${linkWhats(MENSAGEM(p, preco))}"
              target="_blank" rel="noopener"
-             aria-label="Pedir ${esc(p.nome)} pelo WhatsApp">
-            ${iconeWhats()} Pedir
+             aria-label="Consultar ${esc(p.nome)} pelo WhatsApp">
+            ${iconeWhats()} Consultar
           </a>
         </div>
       </div>

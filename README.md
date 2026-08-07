@@ -78,13 +78,18 @@ O quarto bloco da página inicial. Cada item é um cartão que leva o visitante
 para **fora** do site — loja online ou o endereço no mapa:
 
 ```js
+export const SECAO_LOJA = {
+  titulo: 'Onde nos encontrar',
+  subtitulo: 'Veja a vitrine e feche o pedido pelo WhatsApp.',
+};
+
 export const LOJAS = [
   {
-    nome: 'Loja online',
-    tipo: 'online',                          // 'online' (carrinho) ou 'fisica' (mapa)
-    url: 'https://shopee.com.br/sualoja',    // obrigatório
-    descricao: 'Compre pelo site com entrega para todo o Brasil.',
-    botao: 'Comprar online',
+    nome: 'Nossa vitrine',
+    tipo: 'online',              // 'online' (loja) ou 'fisica' (mapa)
+    url: 'produtos.html',        // obrigatório
+    descricao: 'Todos os produtos com preço. É só escolher e pedir pelo WhatsApp.',
+    botao: 'Ver a vitrine',      // opcional
   },
   {
     nome: 'Loja física',
@@ -96,8 +101,21 @@ export const LOJAS = [
 ];
 ```
 
-Serve para qualquer destino: Shopee, Mercado Livre, Elo7, loja virtual própria,
-iFood ou Google Maps. Só troque a `url`.
+A `url` aceita tanto uma página do próprio site (`produtos.html`) quanto um
+destino externo: Instagram, Shopee, Mercado Livre, Elo7, iFood ou Google Maps.
+
+- Endereços com `http://` ou `https://` abrem em **outra aba**.
+- Páginas do próprio site abrem na **mesma aba** — mandar o visitante para uma
+  aba nova só para ir do início ao catálogo confunde e quebra o botão "voltar".
+
+> **O texto do botão precisa dizer o que o clique faz.** "Comprar online" só
+> vale se existir carrinho e pagamento do outro lado. Quando o pedido é fechado
+> no WhatsApp, prometer compra frustra o visitante e queima a confiança logo no
+> primeiro clique. Prefira `'Ver a vitrine'`, `'Ver o catálogo'`,
+> `'Conhecer a loja'`, `'Ver no Instagram'` ou `'Ver no mapa'`.
+
+Omitindo `botao`, o site escolhe sozinho: **Ver a vitrine** para `online` e
+**Ver no mapa** para `fisica`.
 
 Para o link do mapa: abra o Google Maps, busque o endereço, clique em
 **Compartilhar** e depois em **Copiar link**, e cole em `url`.

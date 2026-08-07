@@ -6,25 +6,55 @@
 // =====================================================================
 
 export const NEGOCIO = {
-  nome: 'Loja Exemplo',
-  slogan: 'Produtos selecionados e eventos sob medida',
+  nome: 'Guns Core',
+  slogan: 'Armas, munições e acessórios para o atirador habilitado',
 
-  // Logo redonda do topo. Coloque o arquivo em img/ e escreva 'img/logo.png'.
-  // Deixando vazio, aparece um círculo com as iniciais do nome.
-  logo: '',
+  // Logo do topo. Coloque o arquivo em img/ e escreva 'img/logo.png'.
+  // Deixando vazio (ou se o arquivo faltar), aparece um círculo com as iniciais.
+  logo: 'img/logo.png',
+
+  // Iniciais usadas quando não há logo. Sem isso, sairia 'GC' (de Guns Core),
+  // mas a marca assina GSC.
+  iniciais: 'GSC',
 
   // Número com código do país (55) + DDD + número, só dígitos.
   // Ex.: (11) 98765-4321  ->  5511987654321
-  whatsapp: '5511999999999',
+  whatsapp: '5511999999999',   // <<< TROCAR PELO NÚMERO REAL
 
   // Opcionais: deixe '' para não aparecer.
-  instagram: '',            // só o usuário, sem @  (ex.: 'lojaexemplo')
+  instagram: '',            // só o usuário, sem @  (ex.: 'gunscore')
   endereco: '',             // ex.: 'Rua das Flores, 123 - Centro'
-  horario: 'Seg a Sáb, 9h às 18h',
+  horario: 'Seg a Sex, 9h às 18h · Sáb, 9h às 13h',
 
-  // Cor principal do site. Troque para combinar com a marca do cliente.
-  cor: '#c2410c',
+  // Registro no Exército. Aparece no rodapé — dá credibilidade e é
+  // exigência de transparência no setor. Deixe '' se preferir não mostrar.
+  registro: '',             // ex.: 'CR nº 000000 - Exército Brasileiro'
+
+  // Cor principal do site — laranja extraído da própria logo.
+  cor: '#e15b12',
+
+  // 'escuro' combina com a marca; 'claro' deixa o site em tons de areia.
+  tema: 'escuro',
 };
+
+// =====================================================================
+//  AVISO LEGAL — aparece no rodapé de todas as páginas.
+//
+//  Comércio de armas e munições é regulamentado. O site é uma VITRINE:
+//  não vende, não processa pagamento e não substitui o processo legal de
+//  aquisição. Deixar isso explícito protege a loja e evita que o visitante
+//  chegue ao WhatsApp achando que basta pagar.
+//
+//  Confirme o texto com o responsável legal da empresa antes de publicar.
+// =====================================================================
+
+export const AVISO_LEGAL =
+  'Este site tem caráter exclusivamente informativo e não realiza vendas online. '
+  + 'A comercialização de armas de fogo, munições e acessórios controlados é '
+  + 'regulamentada pelo Exército Brasileiro e destinada apenas a pessoas maiores '
+  + 'de 25 anos, devidamente habilitadas e com documentação e autorizações válidas. '
+  + 'Toda aquisição está sujeita à apresentação da documentação exigida por lei e '
+  + 'à autorização dos órgãos competentes.';
 
 // =====================================================================
 //  SOBRE A EMPRESA — o bloco do meio da página inicial.
@@ -32,22 +62,23 @@ export const NEGOCIO = {
 // =====================================================================
 
 export const SOBRE = {
-  titulo: 'Sobre a empresa',
+  titulo: 'Sobre a Guns Core',
   paragrafos: [
-    'Somos uma empresa dedicada a oferecer produtos de qualidade e a criar '
-    + 'experiências memoráveis. Trabalhamos com atenção ao detalhe e atendimento '
-    + 'próximo, do primeiro contato à entrega.',
+    'A Guns Core é uma loja especializada em armas de fogo, munições e '
+    + 'acessórios, com atendimento voltado a CACs, agentes de segurança e '
+    + 'cidadãos habilitados. Trabalhamos com produtos de procedência '
+    + 'comprovada e orientação técnica em cada etapa.',
 
-    'Além do catálogo, realizamos eventos e ações especiais ao longo do ano. '
-    + 'Acompanhe a agenda abaixo e fale com a gente pelo WhatsApp para participar '
-    + 'ou reservar uma data.',
+    'Nossa equipe acompanha o cliente desde a escolha do equipamento até a '
+    + 'documentação necessária para a aquisição. Fale com a gente pelo '
+    + 'WhatsApp para tirar dúvidas ou solicitar um orçamento.',
   ],
 
   // Números de destaque. Deixe a lista vazia [] para não mostrar.
   numeros: [
     { valor: '+10',  rotulo: 'anos de experiência' },
     { valor: '+500', rotulo: 'clientes atendidos' },
-    { valor: '+30',  rotulo: 'eventos realizados' },
+    { valor: '100%', rotulo: 'produtos com procedência' },
   ],
 };
 
@@ -65,49 +96,65 @@ export const SOBRE = {
 
 export const EVENTOS = [
   {
-    nome: 'Feira de Verão',
+    nome: 'Curso de Tiro Defensivo',
     data: '15 e 16 de março',
-    local: 'Praça Central',
-    descricao: 'Dois dias de exposição com preços especiais e atrações para toda a família.',
+    local: 'Clube de Tiro parceiro',
+    descricao: 'Treinamento prático com instrutor credenciado. Turmas reduzidas.',
     destaque: true,
   },
   {
-    nome: 'Workshop de Personalização',
+    nome: 'Dia de Prova de Armas',
     data: 'Todo último sábado do mês',
-    local: 'Loja física',
-    descricao: 'Aprenda a personalizar suas peças com nossa equipe. Vagas limitadas.',
+    local: 'Estande parceiro',
+    descricao: 'Experimente diferentes modelos antes de decidir a compra.',
   },
   {
-    nome: 'Eventos Corporativos',
+    nome: 'Assessoria para CAC',
     data: 'Sob agendamento',
-    local: 'No local do cliente',
-    descricao: 'Montamos ações personalizadas para empresas: brindes, uniformes e ativações.',
+    local: 'Na loja',
+    descricao: 'Orientação completa sobre registro, documentação e renovação.',
   },
 ];
 
 // =====================================================================
-//  LOJAS — o quarto bloco da página inicial.
+//  LOJA — o quarto bloco da página inicial.
 //
 //  Cada item vira um cartão que leva o visitante para fora do site.
 //
 //    nome       obrigatório
-//    tipo       'online' (carrinho) ou 'fisica' (mapa). Muda só o ícone
+//    tipo       'online' (ícone de loja) ou 'fisica' (ícone de mapa)
 //    url        para onde o clique leva. OBRIGATÓRIO
-//                 online: https://shopee.com.br/sualoja
-//                 física: link do Google Maps do endereço
+//                 a própria vitrine: 'produtos.html'
+//                 perfil ou loja externa: 'https://instagram.com/sualoja'
+//                 endereço: link do Google Maps
 //    descricao  opcional
-//    botao      texto do botão. Sem isso, usa 'Ir para a loja'
+//    botao      texto do botão (opcional). Sem isso, o site usa
+//               'Ver a vitrine' ou 'Ver no mapa', conforme o tipo.
+//
+//  Endereços que começam com http:// ou https:// abrem em OUTRA aba.
+//  Páginas do próprio site (como 'produtos.html') abrem na MESMA aba.
+//
+//  ATENÇÃO AO TEXTO DO BOTÃO: escreva o que o clique realmente faz.
+//  "Comprar online" só vale se existir carrinho e pagamento do outro lado.
+//  Se o pedido é fechado no WhatsApp, prefira algo como:
+//    'Ver a vitrine' · 'Ver o catálogo' · 'Conhecer a loja'
+//    'Ver no Instagram' · 'Ver no mapa'
 //
 //  Deixe a lista vazia [] para o bloco não aparecer.
 // =====================================================================
 
+export const SECAO_LOJA = {
+  titulo: 'Onde nos encontrar',
+  subtitulo: 'Veja a vitrine e fale com a gente pelo WhatsApp.',
+};
+
 export const LOJAS = [
   {
-    nome: 'Loja online',
+    nome: 'Nossa vitrine',
     tipo: 'online',
-    url: 'https://shopee.com.br/',
-    descricao: 'Compre pelo site com pagamento seguro e entrega para todo o Brasil.',
-    botao: 'Comprar online',
+    url: 'produtos.html',
+    descricao: 'Catálogo completo. Escolha o item e solicite informações pelo WhatsApp.',
+    botao: 'Ver a vitrine',
   },
   {
     nome: 'Loja física',
@@ -130,72 +177,76 @@ export const LOJAS = [
 //    destaque  opcional. true mostra a etiqueta
 // =====================================================================
 
+// Exemplos genéricos, só para o cliente ver o site montado. Substitua pelo
+// catálogo real. Em itens controlados, `preco: 0` mostra "Sob consulta" —
+// costuma ser a escolha mais segura, já que o valor depende de documentação,
+// tributos e disponibilidade.
 export const PRODUTOS = [
   {
-    nome: 'Camiseta Básica Preta',
-    preco: 79.9,
-    categoria: 'Camisetas',
-    descricao: 'Algodão penteado, modelagem reta. Do P ao GG.',
-    codigo: 'CAM-001',
+    nome: 'Pistola calibre .380',
+    preco: 0,
+    categoria: 'Armas',
+    descricao: 'Consulte modelos disponíveis. Venda mediante documentação.',
+    codigo: 'ARM-001',
     destaque: true,
   },
   {
-    nome: 'Camiseta Estampada Verão',
-    preco: 89.9,
-    categoria: 'Camisetas',
-    descricao: 'Estampa exclusiva, tecido leve.',
-    codigo: 'CAM-002',
+    nome: 'Revólver calibre .38',
+    preco: 0,
+    categoria: 'Armas',
+    descricao: 'Consulte modelos disponíveis. Venda mediante documentação.',
+    codigo: 'ARM-002',
   },
   {
-    nome: 'Camiseta Oversized',
-    preco: 99.9,
-    categoria: 'Camisetas',
-    descricao: 'Caimento solto, ombro caído.',
-    codigo: 'CAM-003',
+    nome: 'Carabina de pressão',
+    preco: 0,
+    categoria: 'Armas',
+    descricao: 'Modelos para prática esportiva.',
+    codigo: 'ARM-003',
   },
   {
-    nome: 'Moletom com Capuz',
-    preco: 189.9,
-    categoria: 'Moletons',
-    descricao: 'Forro felpado, bolso canguru.',
-    codigo: 'MOL-001',
+    nome: 'Munição .380 ACP',
+    preco: 0,
+    categoria: 'Munições',
+    descricao: 'Caixa com 50 unidades. Venda controlada.',
+    codigo: 'MUN-001',
     destaque: true,
   },
   {
-    nome: 'Moletom Careca',
-    preco: 169.9,
-    categoria: 'Moletons',
-    descricao: 'Sem capuz, punho canelado.',
-    codigo: 'MOL-002',
+    nome: 'Munição .38 SPL',
+    preco: 0,
+    categoria: 'Munições',
+    descricao: 'Caixa com 50 unidades. Venda controlada.',
+    codigo: 'MUN-002',
   },
   {
-    nome: 'Boné Aba Curva',
-    preco: 59.9,
+    nome: 'Coldre de cintura',
+    preco: 249.9,
     categoria: 'Acessórios',
-    descricao: 'Ajuste traseiro, bordado frontal.',
+    descricao: 'Kydex, ajuste de retenção. Consulte o modelo compatível.',
     codigo: 'ACE-001',
   },
   {
-    nome: 'Meia Cano Alto',
-    preco: 24.9,
+    nome: 'Protetor auricular',
+    preco: 129.9,
     categoria: 'Acessórios',
-    descricao: 'Par. Tamanho único.',
+    descricao: 'Abafador tipo concha para uso em estande.',
     codigo: 'ACE-002',
   },
   {
-    nome: 'Kit 3 Camisetas',
-    preco: 199.9,
-    categoria: 'Kits',
-    descricao: 'Escolha as cores no atendimento.',
-    codigo: 'KIT-001',
+    nome: 'Cofre para arma',
+    preco: 899.9,
+    categoria: 'Acessórios',
+    descricao: 'Armazenamento seguro, com fechadura eletrônica.',
+    codigo: 'ACE-003',
     destaque: true,
   },
   {
-    nome: 'Peça Personalizada',
-    preco: 0,
-    categoria: 'Kits',
-    descricao: 'Estampa sua arte. Orçamento pelo WhatsApp.',
-    codigo: 'KIT-002',
+    nome: 'Kit de limpeza',
+    preco: 189.9,
+    categoria: 'Manutenção',
+    descricao: 'Hastes, escovas, flanelas e óleo lubrificante.',
+    codigo: 'MAN-001',
   },
 ];
 
@@ -204,19 +255,21 @@ export const PRODUTOS = [
 //  \n quebra a linha e *texto* aparece em negrito no WhatsApp.
 // =====================================================================
 
+// "Informações" em vez de "quero comprar": a aquisição depende de
+// documentação e autorização, então a conversa começa como consulta.
 export const MENSAGEM = (produto, precoFormatado) =>
-  `Olá! Vi o site e tenho interesse neste produto:\n\n`
+  `Olá! Vi o site e gostaria de informações sobre este item:\n\n`
   + `*${produto.nome}*\n`
   + `${precoFormatado}\n`
   + (produto.codigo ? `Código: ${produto.codigo}\n` : '')
-  + `\nPoderia me passar mais informações?`;
+  + `\nPodem me orientar sobre disponibilidade e documentação necessária?`;
 
 export const MENSAGEM_EVENTO = (evento) =>
-  `Olá! Vi o site e quero saber mais sobre este evento:\n\n`
+  `Olá! Vi o site e quero saber mais sobre:\n\n`
   + `*${evento.nome}*\n`
   + (evento.data ? `${evento.data}\n` : '')
   + (evento.local ? `${evento.local}\n` : '')
   + `\nComo faço para participar?`;
 
 export const MENSAGEM_GERAL = () =>
-  `Olá! Vi o site e gostaria de mais informações.`;
+  `Olá! Vi o site da Guns Core e gostaria de mais informações.`;

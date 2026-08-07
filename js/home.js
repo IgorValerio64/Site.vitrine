@@ -1,4 +1,4 @@
-import { NEGOCIO, SOBRE, EVENTOS, LOJAS, MENSAGEM_EVENTO } from './config.js';
+import { NEGOCIO, SOBRE, EVENTOS, LOJAS, SECAO_LOJA, MENSAGEM_EVENTO } from './config.js';
 import {
   esc, linkWhats, iconeWhats, iconeLoja, iconeMapa, midia,
   montarTopo, montarRodape,
@@ -76,23 +76,36 @@ document.getElementById('eventos').innerHTML = `
 // --- lojas ------------------------------------------------------------
 // Leva para fora do site (loja online ou mapa), por isso abre em outra aba:
 // o visitante não perde o catálogo que estava vendo.
-const cardLoja = (l) => `
-  <a class="card-loja" href="${esc(l.url)}" target="_blank" rel="noopener">
-    <span class="loja-icone">${l.tipo === 'fisica' ? iconeMapa() : iconeLoja()}</span>
-    <span class="loja-texto">
-      <strong>${esc(l.nome)}</strong>
-      ${l.descricao ? `<span class="loja-desc">${esc(l.descricao)}</span>` : ''}
-    </span>
-    <span class="btn-marca pequeno">${esc(l.botao || 'Ir para a loja')}</span>
-  </a>`;
+// O texto padrão evita prometer o que o clique não faz: sem carrinho do outro
+// lado, "Comprar online" engana o visitante.
+const rotuloBotao = (l) => l.botao || (l.tipo === 'fisica' ? 'Ver no mapa' : 'Ver a vitrine');
+
+// Só destino externo abre em outra aba. Página do próprio site abre na mesma:
+// jogar o visitante numa aba nova para ir do início ao catálogo confunde e
+// quebra o botão "voltar" do navegador.
+const ehExterno = (url) => /^https?:\/\//i.test(url);
+
+const cardLoja = (l) => {
+  const fora = ehExterno(l.url);
+  return `
+    <a class="card-loja" href="${esc(l.url)}"
+       ${fora ? 'target="_blank" rel="noopener"' : ''}>
+      <span class="loja-icone">${l.tipo === 'fisica' ? iconeMapa() : iconeLoja()}</span>
+      <span class="loja-texto">
+        <strong>${esc(l.nome)}</strong>
+        ${l.descricao ? `<span class="loja-desc">${esc(l.descricao)}</span>` : ''}
+      </span>
+      <span class="btn-marca pequeno">${esc(rotuloBotao(l))}</span>
+    </a>`;
+};
 
 const secaoLojas = document.getElementById('lojas');
 if (LOJAS.length) {
   secaoLojas.innerHTML = `
     <div class="container">
       <div class="secao-cabecalho">
-        <h2>Nossa loja</h2>
-        <p>Compre online ou visite a gente pessoalmente.</p>
+        <h2>${esc(SECAO_LOJA.titulo)}</h2>
+        ${SECAO_LOJA.subtitulo ? `<p>${esc(SECAO_LOJA.subtitulo)}</p>` : ''}
       </div>
       <div class="grade-lojas">${LOJAS.map(cardLoja).join('')}</div>
     </div>`;

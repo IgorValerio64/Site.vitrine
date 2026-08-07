@@ -1,6 +1,6 @@
 // Peças usadas pelas duas páginas: topo, rodapé, cartões e o link do
 // WhatsApp. Você não precisa mexer aqui — o conteúdo está em config.js.
-import { NEGOCIO, MENSAGEM_GERAL } from './config.js';
+import { NEGOCIO, AVISO_LEGAL, MENSAGEM_GERAL } from './config.js';
 
 export const esc = (s) =>
   String(s ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;')
@@ -25,8 +25,11 @@ export function corDoNome(nome) {
   return `hsl(${soma}, 42%, 82%)`;
 }
 
+// Usa NEGOCIO.iniciais quando definido: nem toda marca assina com as iniciais
+// literais do nome (Guns Core assina GSC).
 export const iniciais = (nome) =>
-  nome.trim().split(/\s+/).slice(0, 2).map((p) => p[0]).join('').toUpperCase();
+  NEGOCIO.iniciais
+  || nome.trim().split(/\s+/).slice(0, 2).map((p) => p[0]).join('').toUpperCase();
 
 export const iconeWhats = () => `
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -62,6 +65,8 @@ export const midia = (item) =>
 export function montarTopo(pagina) {
   document.title = `${NEGOCIO.nome}${pagina === 'produtos' ? ' — Catálogo' : ''}`;
   document.documentElement.style.setProperty('--marca', NEGOCIO.cor);
+  // O CSS troca a paleta inteira a partir deste atributo.
+  document.documentElement.dataset.tema = NEGOCIO.tema === 'claro' ? 'claro' : 'escuro';
 
   const logo = NEGOCIO.logo
     ? `<img class="logo" src="${esc(NEGOCIO.logo)}" alt="${esc(NEGOCIO.nome)}" />`
@@ -84,6 +89,32 @@ export function montarTopo(pagina) {
         ${iconeWhats()} WhatsApp
       </a>
     </div>`;
+
+  // Arquivo de logo ausente ou com nome errado mostraria o ícone de imagem
+  // quebrada — pior do que não ter logo. Aqui volta para as iniciais.
+  const img = document.querySelector('.marca img.logo');
+  if (img) {
+    img.addEventListener('error', () => {
+      const substituto = document.createElement('div');
+      substituto.className = 'logo logo-texto';
+      substituto.textContent = iniciais(NEGOCIO.nome);
+      img.replaceWith(substituto);
+      medirTopo();
+    });
+    // A imagem pode chegar depois da montagem e mudar a altura do cabeçalho.
+    img.addEventListener('load', medirTopo);
+  }
+
+  medirTopo();
+  window.addEventListener('resize', medirTopo);
+}
+
+// Publica a altura real do cabeçalho para o CSS, que a usa para grudar a
+// barra de filtros logo abaixo dele.
+function medirTopo() {
+  const topo = document.getElementById('topo');
+  if (!topo) return;
+  document.documentElement.style.setProperty('--altura-topo', `${topo.offsetHeight}px`);
 }
 
 export function montarRodape() {
@@ -93,6 +124,7 @@ export function montarRodape() {
         <strong>${esc(NEGOCIO.nome)}</strong>
         ${NEGOCIO.endereco ? `<p>${esc(NEGOCIO.endereco)}</p>` : ''}
         ${NEGOCIO.horario ? `<p>${esc(NEGOCIO.horario)}</p>` : ''}
+        ${NEGOCIO.registro ? `<p>${esc(NEGOCIO.registro)}</p>` : ''}
         ${NEGOCIO.instagram
           ? `<p><a href="https://instagram.com/${esc(NEGOCIO.instagram)}" target="_blank" rel="noopener">@${esc(NEGOCIO.instagram)}</a></p>`
           : ''}
@@ -100,5 +132,10 @@ export function montarRodape() {
       <a class="btn-whats grande" href="${linkWhats(MENSAGEM_GERAL())}" target="_blank" rel="noopener">
         ${iconeWhats()} Fale conosco
       </a>
-    </div>`;
+    </div>
+
+    ${AVISO_LEGAL ? `
+      <div class="container">
+        <p class="aviso-legal">${esc(AVISO_LEGAL)}</p>
+      </div>` : ''}`;
 }

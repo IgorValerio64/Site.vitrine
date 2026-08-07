@@ -4,6 +4,7 @@
    Pensado primeiro para o celular, que é de onde vem a maior parte
    dos acessos deste tipo de site.
    ===================================================================== */
+/* Tema claro (padrão) — areia e branco. */
 :root {
   --marca:      #c2410c;
   --bg:         #faf7f2;
@@ -11,10 +12,28 @@
   --texto:      #1f1b16;
   --suave:      #6b6257;
   --borda:      #e8e0d5;
+  --placeholder:#f1ece4;
+  --inicial:    rgba(0,0,0,.34);
   --whats:      #25d366;
   --whats-esc:  #128c4a;
   --raio:       14px;
   --sombra:     0 1px 2px rgba(60,48,30,.05), 0 4px 14px rgba(60,48,30,.06);
+  --sombra-alta:0 8px 26px rgba(60,48,30,.12);
+}
+
+/* Tema escuro — ativado por NEGOCIO.tema = 'escuro' no config.js.
+   A cor da marca (--marca) continua vindo do config, então trocar de
+   cliente não exige mexer aqui. */
+:root[data-tema="escuro"] {
+  --bg:         #0b0b0c;
+  --card:       #151517;
+  --texto:      #f2f2f3;
+  --suave:      #9a9a9f;
+  --borda:      #2a2a2e;
+  --placeholder:#1d1d20;
+  --inicial:    rgba(255,255,255,.22);
+  --sombra:     0 1px 2px rgba(0,0,0,.4), 0 4px 14px rgba(0,0,0,.35);
+  --sombra-alta:0 10px 30px rgba(0,0,0,.55);
 }
 
 * { box-sizing: border-box; }
@@ -46,14 +65,20 @@ header {
 }
 
 .marca { display: flex; align-items: center; gap: 12px; flex: none; }
-.logo {
-  width: 46px; height: 46px; border-radius: 50%; flex: none;
-  object-fit: cover; border: 2px solid var(--borda); background: var(--bg);
+
+/* Logo em imagem: sem moldura nem recorte. A marca da Guns Core é um
+   triângulo — dentro de um círculo, as pontas seriam cortadas. */
+img.logo {
+  height: 62px; width: auto; max-width: 95px; flex: none;
+  object-fit: contain;
 }
+
+/* Sem arquivo de logo, cai para as iniciais dentro de um círculo. */
 .logo-texto {
+  width: 58px; height: 58px; border-radius: 50%; flex: none;
   display: grid; place-items: center;
-  background: var(--marca); border-color: var(--marca);
-  color: #fff; font-weight: 800; font-size: 16px; letter-spacing: .02em;
+  background: var(--marca);
+  color: #fff; font-weight: 800; font-size: 18px; letter-spacing: .02em;
 }
 .marca-nome { font-size: 19px; font-weight: 800; letter-spacing: -.02em; }
 
@@ -164,7 +189,7 @@ header {
 }
 .card-loja:hover {
   transform: translateY(-3px); border-color: var(--marca);
-  box-shadow: 0 8px 26px rgba(60,48,30,.12);
+  box-shadow: var(--sombra-alta);
 }
 .card-loja:active { transform: scale(.99); }
 
@@ -182,9 +207,12 @@ header {
 .btn-marca.pequeno { padding: 9px 18px; font-size: 13.5px; flex: none; }
 
 /* ---------------------------------------------------------------- FILTROS */
+/* O topo é grudado, então a barra de filtros precisa parar logo abaixo dele.
+   A altura vem medida pelo JS (--altura-topo): fixar um número aqui quebraria
+   toda vez que a logo ou o menu mudassem de tamanho. */
 .filtros {
   background: var(--bg);
-  position: sticky; top: 71px; z-index: 20;
+  position: sticky; top: var(--altura-topo, 71px); z-index: 20;
   padding: 16px 0 10px;
   border-bottom: 1px solid var(--borda);
 }
@@ -194,7 +222,7 @@ header {
   color: var(--texto); outline: none; font-family: inherit;
 }
 .busca:focus { border-color: var(--marca); }
-.busca::placeholder { color: #a99e90; }
+.busca::placeholder { color: var(--suave); opacity: .75; }
 
 .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 .chip {
@@ -226,19 +254,19 @@ main { padding-bottom: 10px; }
 }
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 26px rgba(60,48,30,.12);
+  box-shadow: var(--sombra-alta);
 }
 .card.encerrado { opacity: .6; }
 .card.encerrado:hover { transform: none; box-shadow: var(--sombra); }
 
-.card-midia { position: relative; aspect-ratio: 4 / 3; background: #f1ece4; }
+.card-midia { position: relative; aspect-ratio: 4 / 3; background: var(--placeholder); }
 .card-midia img { width: 100%; height: 100%; object-fit: cover; }
 
 /* Sem foto: bloco com a inicial. */
 .sem-foto { width: 100%; height: 100%; display: grid; place-items: center; }
 .sem-foto span {
   font-size: 52px; font-weight: 800;
-  color: rgba(0,0,0,.34); text-transform: uppercase;
+  color: var(--inicial); text-transform: uppercase;
 }
 
 .etiqueta {
@@ -276,11 +304,24 @@ footer { background: var(--card); border-top: 1px solid var(--borda); padding: 2
 footer p { margin: 5px 0 0; color: var(--suave); font-size: 13.5px; }
 footer a:hover { color: var(--marca); }
 
+/* Aviso legal: precisa ser legível, não escondido. Fica menor que o resto,
+   mas com contraste suficiente para ser lido de verdade. */
+.aviso-legal {
+  margin-top: 22px !important;
+  padding-top: 18px;
+  border-top: 1px solid var(--borda);
+  font-size: 12px !important;
+  line-height: 1.6;
+  color: var(--suave);
+  max-width: 900px;
+}
+
 /* ---------------------------------------------------------------- CELULAR */
 @media (max-width: 780px) {
   .topo-inner { flex-wrap: wrap; gap: 10px 14px; padding: 12px 18px; }
   .marca-nome { font-size: 17px; }
-  .logo { width: 40px; height: 40px; }
+  img.logo { height: 50px; max-width: 76px; }
+  .logo-texto { width: 50px; height: 50px; font-size: 16px; }
   .menu { margin-left: auto; gap: 16px; order: 3; width: 100%; }
   .menu a { font-size: 13.5px; }
   .topo-inner > .btn-whats { margin-left: auto; padding: 8px 14px; font-size: 13px; }
