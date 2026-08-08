@@ -11,7 +11,9 @@ montarTopo('home');
 // --- capa -------------------------------------------------------------
 document.getElementById('capa').innerHTML = `
   <div class="container capa-inner">
-    <h1>${esc(NEGOCIO.nome)}</h1>
+    ${NEGOCIO.capa
+      ? `<img class="capa-img" src="${esc(NEGOCIO.capa)}" alt="${esc(NEGOCIO.nome)}" />`
+      : `<h1>${esc(NEGOCIO.nome)}</h1>`}
     ${NEGOCIO.slogan ? `<p class="capa-slogan">${esc(NEGOCIO.slogan)}</p>` : ''}
     <div class="capa-acoes">
       <a class="btn-marca" href="produtos.html">Ver produtos</a>
