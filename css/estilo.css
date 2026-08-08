@@ -132,9 +132,11 @@ img.logo {
   min-height: 500px;
   display: flex; align-items: center;
   padding: 96px 0;
-  background-image: linear-gradient(rgba(12, 12, 14, .48), rgba(12, 12, 14, .70)), var(--capa-img);
+  /* a imagem de fundo (foto + camada escura) é aplicada via JS, com URL
+     absoluta — ver home.js. Aqui só definimos como ela se ajusta. */
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 .capa--imagem h1 {
   color: #fff; font-size: 56px;

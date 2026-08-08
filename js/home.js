@@ -11,10 +11,13 @@ montarTopo('home');
 // --- capa -------------------------------------------------------------
 const capaEl = document.getElementById('capa');
 // Com imagem definida, a capa vira um "hero" de fundo: o nome e os botões
-// ficam por cima da foto (o CSS usa a variável --capa-img no background).
+// ficam por cima da foto. A URL é resolvida ABSOLUTA a partir da página —
+// url() relativo dentro do CSS resolveria a partir de /css/ e daria 404.
 if (NEGOCIO.capa) {
   capaEl.classList.add('capa--imagem');
-  capaEl.style.setProperty('--capa-img', `url("${NEGOCIO.capa}")`);
+  const capaUrl = new URL(NEGOCIO.capa, location.href).href;
+  capaEl.style.backgroundImage =
+    `linear-gradient(rgba(12, 12, 14, .45), rgba(12, 12, 14, .70)), url("${capaUrl}")`;
 }
 capaEl.innerHTML = `
   <div class="container capa-inner">
