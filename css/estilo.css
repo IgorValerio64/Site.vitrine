@@ -72,6 +72,7 @@ header {
   position: sticky; top: 0; z-index: 30;
   transition: transform .32s ease;
   will-change: transform;
+  margin-bottom: -1px;   /* fecha a fresta (1px) que mostrava o fundo abaixo */
 }
 
 /* Auto-hide: o cabeçalho sai da tela ao rolar pra baixo e volta ao rolar pra
@@ -302,7 +303,7 @@ img.logo {
    toda vez que a logo ou o menu mudassem de tamanho. */
 .filtros {
   background: var(--bg);
-  position: sticky; top: var(--altura-topo, 71px); z-index: 20;
+  position: sticky; top: calc(var(--altura-topo, 71px) - 1px); z-index: 20;
   padding: 16px 0 10px;
   border-bottom: 1px solid var(--borda);
 }
