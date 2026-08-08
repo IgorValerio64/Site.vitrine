@@ -17,9 +17,10 @@ export const NEGOCIO = {
   // Deixando vazio (ou se o arquivo faltar), aparece um círculo com as iniciais.
   logo: '',
 
-  // Imagem grande da capa (banner no topo da página inicial). Coloque o
-  // arquivo em img/ e aponte aqui. Vazio = mostra o nome em texto grande.
-  capa: 'img/capa.jpg',
+  // Imagem grande da capa (banner no topo da página inicial). Vazio = o topo
+  // fica transparente e mostra o FUNDO da página (definido em .css). Deixamos
+  // vazio porque o fundo da GSC agora cobre o site inteiro (ver estilo.css).
+  capa: '',
 
   // Iniciais usadas quando não há logo. Vazio deixa o site derivar do nome.
   iniciais: '',
