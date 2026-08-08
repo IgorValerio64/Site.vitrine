@@ -45,8 +45,8 @@ html, body {
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
 }
-html { background: var(--bg); }   /* cor base atrás do fundo */
-body { background: transparent; } /* deixa o fundo (.page-bg) aparecer */
+html { background: var(--bg); overflow-x: clip; } /* clip: barra horizontal sem quebrar o sticky */
+body { background: transparent; }                 /* deixa o fundo (.page-bg) aparecer */
 
 /* Fundo (imagem) fixo atrás de TODO o site. O elemento .page-bg é criado
    e preenchido via JS (comum.js) com URL absoluta — url() relativo no CSS
@@ -415,7 +415,9 @@ footer a:hover { color: var(--marca); }
   .logo-texto { width: 50px; height: 50px; font-size: 16px; }
   .menu { margin-left: auto; gap: 16px; order: 3; width: 100%; }
   .menu a { font-size: 13.5px; }
-  .topo-inner > .btn-whats { margin-left: auto; padding: 8px 14px; font-size: 13px; }
+  /* no celular o botão de WhatsApp do topo é redundante (há o flutuante) e
+     apertava o cabeçalho — some, deixando marca + menu com folga. */
+  .topo-inner > .btn-whats { display: none; }
 
   .capa { padding: 84px 0 72px; }
   .capa h1 { font-size: 32px; }
@@ -446,3 +448,4 @@ footer a:hover { color: var(--marca); }
   .card-rodape { flex-direction: column; align-items: stretch; gap: 8px; }
   .rodape-inner { flex-direction: column; align-items: stretch; }
 }
+
