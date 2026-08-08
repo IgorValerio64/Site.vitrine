@@ -75,13 +75,22 @@ header {
 }
 
 /* Auto-hide: o cabeçalho sai da tela ao rolar pra baixo e volta ao rolar pra
-   cima (classe `nav-oculto` no body, controlada pelo JS de comum.js). */
-body.nav-oculto header { transform: translateY(-100%); }
-/* Na página de produtos os filtros/categorias continuam à vista e sobem pro
-   topo quando o cabeçalho some; só o campo de busca é escondido. */
-body.nav-oculto .filtros { top: 0; }
-body.nav-oculto #busca { display: none; }
-body.nav-oculto .chips { margin-top: 0; }
+   cima. NÃO vale na página de produtos, onde o topo continua à vista. */
+body.nav-oculto:not(.pagina-produtos) header { transform: translateY(-100%); }
+
+/* Página de produtos: header e categorias ficam; só a busca recolhe suave ao
+   rolar pra baixo. Colapso animado (sem mover a barra) — não treme a página. */
+.busca {
+  transition: max-height .28s ease, opacity .18s ease,
+              padding .28s ease, margin .28s ease, border-width .28s ease;
+  max-height: 64px; overflow: hidden;
+}
+.chips { transition: margin-top .28s ease; }
+body.pagina-produtos.nav-oculto .busca {
+  max-height: 0; opacity: 0; margin: 0;
+  padding-top: 0; padding-bottom: 0; border-width: 0;
+}
+body.pagina-produtos.nav-oculto .chips { margin-top: 0; }
 .topo-inner {
   display: flex; align-items: center; gap: 20px;
   padding: 12px 18px;
@@ -296,7 +305,6 @@ img.logo {
   position: sticky; top: var(--altura-topo, 71px); z-index: 20;
   padding: 16px 0 10px;
   border-bottom: 1px solid var(--borda);
-  transition: top .3s ease;
 }
 .busca {
   width: 100%; background: var(--card); border: 1px solid var(--borda);

@@ -67,6 +67,8 @@ export function montarTopo(pagina) {
   document.documentElement.style.setProperty('--marca', NEGOCIO.cor);
   // O CSS troca a paleta inteira a partir deste atributo.
   document.documentElement.dataset.tema = NEGOCIO.tema === 'claro' ? 'claro' : 'escuro';
+  // marca a página de produtos: lá o cabeçalho fica fixo e só a busca recolhe.
+  document.body.classList.toggle('pagina-produtos', pagina === 'produtos');
 
   const logo = NEGOCIO.logo
     ? `<img class="logo" src="${esc(NEGOCIO.logo)}" alt="${esc(NEGOCIO.nome)}" />`
