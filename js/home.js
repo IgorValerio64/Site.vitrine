@@ -9,11 +9,16 @@ import {
 montarTopo('home');
 
 // --- capa -------------------------------------------------------------
-document.getElementById('capa').innerHTML = `
+const capaEl = document.getElementById('capa');
+// Com imagem definida, a capa vira um "hero" de fundo: o nome e os botões
+// ficam por cima da foto (o CSS usa a variável --capa-img no background).
+if (NEGOCIO.capa) {
+  capaEl.classList.add('capa--imagem');
+  capaEl.style.setProperty('--capa-img', `url("${NEGOCIO.capa}")`);
+}
+capaEl.innerHTML = `
   <div class="container capa-inner">
-    ${NEGOCIO.capa
-      ? `<img class="capa-img" src="${esc(NEGOCIO.capa)}" alt="${esc(NEGOCIO.nome)}" />`
-      : `<h1>${esc(NEGOCIO.nome)}</h1>`}
+    <h1>${esc(NEGOCIO.nome)}</h1>
     ${NEGOCIO.slogan ? `<p class="capa-slogan">${esc(NEGOCIO.slogan)}</p>` : ''}
     <div class="capa-acoes">
       <a class="btn-marca" href="produtos.html">Ver produtos</a>

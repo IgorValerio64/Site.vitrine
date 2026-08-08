@@ -126,12 +126,21 @@ img.logo {
   font-size: 42px; font-weight: 800; letter-spacing: -.035em;
   color: var(--marca); line-height: 1.1;
 }
-.capa-img {
-  width: 100%; max-width: 1000px; height: auto; display: block;
-  margin: 0 auto; border-radius: 16px;
-  border: 1px solid var(--borda);
-  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .65);
+/* Capa com imagem de fundo: o nome e os botões ficam por cima da foto.
+   A camada escura (gradiente) garante a leitura do texto sobre a imagem. */
+.capa--imagem {
+  min-height: 500px;
+  display: flex; align-items: center;
+  padding: 96px 0;
+  background-image: linear-gradient(rgba(12, 12, 14, .48), rgba(12, 12, 14, .70)), var(--capa-img);
+  background-size: cover;
+  background-position: center;
 }
+.capa--imagem h1 {
+  color: #fff; font-size: 56px;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, .55);
+}
+.capa--imagem .capa-slogan { color: rgba(255, 255, 255, .92); }
 .capa-slogan {
   margin: 14px auto 0; max-width: 560px;
   color: var(--suave); font-size: 17px; line-height: 1.5;
@@ -334,6 +343,8 @@ footer a:hover { color: var(--marca); }
 
   .capa { padding: 40px 0 38px; }
   .capa h1 { font-size: 30px; }
+  .capa--imagem { min-height: 360px; padding: 60px 0; }
+  .capa--imagem h1 { font-size: 34px; }
   .capa-slogan { font-size: 15px; }
   .capa-acoes { flex-direction: column; }
   .capa-acoes > * { width: 100%; }
