@@ -105,6 +105,18 @@ export function montarTopo(pagina) {
     img.addEventListener('load', medirTopo);
   }
 
+  // Botão flutuante do WhatsApp no canto inferior direito (todas as páginas).
+  if (!document.querySelector('.whats-flutuante')) {
+    const fab = document.createElement('a');
+    fab.className = 'whats-flutuante';
+    fab.href = linkWhats(MENSAGEM_GERAL());
+    fab.target = '_blank';
+    fab.rel = 'noopener';
+    fab.setAttribute('aria-label', 'Falar no WhatsApp');
+    fab.innerHTML = iconeWhats();
+    document.body.appendChild(fab);
+  }
+
   medirTopo();
   window.addEventListener('resize', medirTopo);
 }

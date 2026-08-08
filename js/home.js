@@ -25,8 +25,6 @@ capaEl.innerHTML = `
     ${NEGOCIO.slogan ? `<p class="capa-slogan">${esc(NEGOCIO.slogan)}</p>` : ''}
     <div class="capa-acoes">
       <a class="btn-marca" href="produtos.html">Ver produtos</a>
-      <a class="btn-whats grande" href="${linkWhats('Olá! Vi o site e gostaria de mais informações.')}"
-         target="_blank" rel="noopener">${iconeWhats()} Falar no WhatsApp</a>
     </div>
   </div>`;
 

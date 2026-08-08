@@ -105,6 +105,19 @@ img.logo {
 .btn-whats.grande { padding: 12px 22px; font-size: 15px; }
 .btn-whats.bloco { width: 100%; }
 
+/* Botão flutuante do WhatsApp — fixo no canto inferior direito */
+.whats-flutuante {
+  position: fixed; right: 20px; bottom: 20px; z-index: 200;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--whats); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .35);
+  transition: transform .15s, background .15s;
+}
+.whats-flutuante:hover { background: var(--whats-esc); transform: scale(1.08); }
+.whats-flutuante:active { transform: scale(.96); }
+.whats-flutuante svg { width: 32px; height: 32px; }
+
 .btn-marca {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--marca); color: #fff;
