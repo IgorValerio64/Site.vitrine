@@ -130,6 +130,21 @@ export function montarTopo(pagina) {
 
   medirTopo();
   window.addEventListener('resize', medirTopo);
+
+  // Auto-hide do cabeçalho: some ao rolar pra baixo, reaparece ao rolar pra
+  // cima. O CSS reage à classe `nav-oculto` no body. Perto do topo, mostra.
+  let ultimoY = window.scrollY, ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (y < 8) document.body.classList.remove('nav-oculto');
+      else if (Math.abs(y - ultimoY) > 6) document.body.classList.toggle('nav-oculto', y > ultimoY);
+      ultimoY = y;
+      ticking = false;
+    });
+  }, { passive: true });
 }
 
 // Publica a altura real do cabeçalho para o CSS, que a usa para grudar a

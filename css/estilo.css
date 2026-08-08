@@ -70,7 +70,18 @@ header {
   background: var(--card);
   border-bottom: 1px solid var(--borda);
   position: sticky; top: 0; z-index: 30;
+  transition: transform .32s ease;
+  will-change: transform;
 }
+
+/* Auto-hide: o cabeçalho sai da tela ao rolar pra baixo e volta ao rolar pra
+   cima (classe `nav-oculto` no body, controlada pelo JS de comum.js). */
+body.nav-oculto header { transform: translateY(-100%); }
+/* Na página de produtos os filtros/categorias continuam à vista e sobem pro
+   topo quando o cabeçalho some; só o campo de busca é escondido. */
+body.nav-oculto .filtros { top: 0; }
+body.nav-oculto #busca { display: none; }
+body.nav-oculto .chips { margin-top: 0; }
 .topo-inner {
   display: flex; align-items: center; gap: 20px;
   padding: 12px 18px;
@@ -285,6 +296,7 @@ img.logo {
   position: sticky; top: var(--altura-topo, 71px); z-index: 20;
   padding: 16px 0 10px;
   border-bottom: 1px solid var(--borda);
+  transition: top .3s ease;
 }
 .busca {
   width: 100%; background: var(--card); border: 1px solid var(--borda);
