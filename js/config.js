@@ -35,7 +35,7 @@ export const NEGOCIO = {
 
   // Opcionais: deixe '' para não aparecer.
   instagram: '',            // só o usuário, sem @  (ex.: 'nomedaloja')
-  endereco: '',             // ex.: 'Rua das Flores, 123 - Centro'
+  endereco: 'Av. Dr. Paulo de Moraes, 2173 - Paulista, Piracicaba - SP, 13400-890',
   horario: 'Seg a Sex, 9h às 18h · Sáb, 9h às 13h',
 
   // Registro no Exército. Aparece no rodapé — dá credibilidade e é
@@ -207,8 +207,8 @@ export const LOJAS = [
   {
     nome: 'Loja física',
     tipo: 'fisica',
-    url: 'https://maps.google.com/?q=Avenida+Paulista+1000+Sao+Paulo',
-    descricao: 'Venha conhecer nosso espaço e ver os produtos de perto.',
+    url: 'https://www.google.com/maps/search/?api=1&query=Av.%20Dr.%20Paulo%20de%20Moraes%2C%202173%20-%20Paulista%2C%20Piracicaba%20-%20SP%2C%2013400-890',
+    descricao: 'Av. Dr. Paulo de Moraes, 2173 - Paulista, Piracicaba - SP. Venha nos visitar.',
     botao: 'Ver no mapa',
   },
 ];
