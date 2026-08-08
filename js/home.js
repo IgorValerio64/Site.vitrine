@@ -1,4 +1,4 @@
-import { NEGOCIO, SOBRE, EVENTOS, LOJAS, SECAO_LOJA, MENSAGEM_EVENTO } from './config.js';
+import { NEGOCIO, SOBRE, SERVICOS, EVENTOS, LOJAS, SECAO_LOJA, MENSAGEM_EVENTO, MENSAGEM_SERVICO } from './config.js';
 import {
   esc, linkWhats, iconeWhats, iconeLoja, iconeMapa, midia,
   montarTopo, montarRodape,
@@ -45,6 +45,40 @@ document.getElementById('sobre').innerHTML = `
         </div>` : ''}
     </div>
   </div>`;
+
+// --- serviços / assessoria --------------------------------------------
+const iconeEscudo = () => `
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+    <path d="m9 12 2 2 4-4"/>
+  </svg>`;
+
+const cardServico = (s) => `
+  <article class="card-servico">
+    <span class="servico-icone">${iconeEscudo()}</span>
+    <h3>${esc(s.nome)}</h3>
+    ${s.descricao ? `<p>${esc(s.descricao)}</p>` : ''}
+    <a class="btn-whats bloco" href="${linkWhats(MENSAGEM_SERVICO(s))}"
+       target="_blank" rel="noopener"
+       aria-label="Consultar sobre ${esc(s.nome)} pelo WhatsApp">
+      ${iconeWhats()} Consultar
+    </a>
+  </article>`;
+
+const secaoServicos = document.getElementById('servicos');
+if (SERVICOS?.itens?.length) {
+  secaoServicos.innerHTML = `
+    <div class="container">
+      <div class="secao-cabecalho">
+        <h2>${esc(SERVICOS.titulo)}</h2>
+        ${SERVICOS.subtitulo ? `<p>${esc(SERVICOS.subtitulo)}</p>` : ''}
+      </div>
+      <div class="grade-servicos">${SERVICOS.itens.map(cardServico).join('')}</div>
+    </div>`;
+} else {
+  secaoServicos.remove();
+}
 
 // --- eventos ----------------------------------------------------------
 const cardEvento = (e) => `

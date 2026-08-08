@@ -90,6 +90,42 @@ export const SOBRE = {
 };
 
 // =====================================================================
+//  SERVIÇOS / ASSESSORIA — bloco na página inicial.
+//
+//  Destaca que a loja ajuda o cliente a tirar e manter os registros.
+//  Cada item vira um cartão com um botão que abre o WhatsApp.
+//  Confira os nomes/siglas com o responsável antes de publicar.
+// =====================================================================
+
+export const SERVICOS = {
+  titulo: 'Assessoria e documentação',
+  subtitulo: 'A gente tira e mantém seus registros em dia — orientação do começo ao fim, '
+    + 'sem você se perder na burocracia. Fale com a gente pelo WhatsApp.',
+  itens: [
+    {
+      nome: 'Posse de arma',
+      descricao: 'Registro para manter a arma na sua residência ou local de trabalho. '
+        + 'Cuidamos da documentação junto à Polícia Federal.',
+    },
+    {
+      nome: 'Porte de arma',
+      descricao: 'Autorização para portar a arma, conforme a sua categoria e os '
+        + 'requisitos exigidos por lei.',
+    },
+    {
+      nome: 'CAC — Tiro esportivo',
+      descricao: 'Registro de Colecionador, Atirador e Caçador (CAC) junto ao Exército, '
+        + 'com a documentação de cada modalidade.',
+    },
+    {
+      nome: 'Renovação e transferência',
+      descricao: 'Renovações, transferências, guias de tráfego e emissão de certificados. '
+        + 'Acompanhamos cada etapa do processo.',
+    },
+  ],
+};
+
+// =====================================================================
 //  EVENTOS — aparecem na página inicial.
 //
 //    nome       obrigatório
@@ -277,6 +313,11 @@ export const MENSAGEM_EVENTO = (evento) =>
   + (evento.data ? `${evento.data}\n` : '')
   + (evento.local ? `${evento.local}\n` : '')
   + `\nComo faço para participar?`;
+
+export const MENSAGEM_SERVICO = (servico) =>
+  `Olá! Vi o site e quero saber mais sobre o serviço de:\n\n`
+  + `*${servico.nome}*\n`
+  + `\nComo funciona e o que eu preciso?`;
 
 export const MENSAGEM_GERAL = () =>
   `Olá! Vi o site e gostaria de mais informações.`;

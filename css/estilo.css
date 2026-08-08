@@ -236,6 +236,33 @@ img.logo {
 
 .btn-marca.pequeno { padding: 9px 18px; font-size: 13.5px; flex: none; }
 
+/* ------------------------------------------------------------- SERVIÇOS */
+.servicos { padding: 8px 0 60px; }
+.grade-servicos {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.card-servico {
+  display: flex; flex-direction: column; gap: 12px;
+  background: var(--card); border: 1px solid var(--borda);
+  border-radius: var(--raio); box-shadow: var(--sombra);
+  padding: 22px;
+  transition: transform .14s, box-shadow .14s, border-color .14s;
+}
+.card-servico:hover {
+  transform: translateY(-3px); border-color: var(--marca);
+  box-shadow: var(--sombra-alta);
+}
+.servico-icone {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: grid; place-items: center;
+  background: var(--bg); color: var(--marca); border: 1px solid var(--borda);
+}
+.servico-icone svg { width: 26px; height: 26px; }
+.card-servico h3 { font-size: 17px; font-weight: 700; }
+.card-servico p { margin: 0; color: var(--suave); font-size: 14px; line-height: 1.55; flex: 1; }
+.card-servico .btn-whats { margin-top: 4px; }
+
 /* ---------------------------------------------------------------- FILTROS */
 /* O topo é grudado, então a barra de filtros precisa parar logo abaixo dele.
    A altura vem medida pelo JS (--altura-topo): fixar um número aqui quebraria
