@@ -105,6 +105,17 @@ export function montarTopo(pagina) {
     img.addEventListener('load', medirTopo);
   }
 
+  // Fundo (imagem) fixo atrás de todo o site. Preenchido aqui, via JS, com
+  // URL absoluta — url() relativo no CSS não resolvia o caminho corretamente.
+  if (NEGOCIO.fundo && !document.querySelector('.page-bg')) {
+    const bg = document.createElement('div');
+    bg.className = 'page-bg';
+    const url = new URL(NEGOCIO.fundo, location.href).href;
+    bg.style.backgroundImage =
+      `linear-gradient(rgba(8, 8, 10, .5), rgba(8, 8, 10, .66)), url("${url}")`;
+    document.body.prepend(bg);
+  }
+
   // Botão flutuante do WhatsApp no canto inferior direito (todas as páginas).
   if (!document.querySelector('.whats-flutuante')) {
     const fab = document.createElement('a');

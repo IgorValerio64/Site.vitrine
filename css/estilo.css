@@ -40,25 +40,23 @@
 
 html, body {
   margin: 0; padding: 0;
-  background: var(--bg);
   color: var(--texto);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
 }
+html { background: var(--bg); }   /* cor base atrás do fundo */
+body { background: transparent; } /* deixa o fundo (.page-bg) aparecer */
 
-/* Fundo (imagem GSC) fixo atrás de TODO o site, com uma camada escura por
-   cima para dar legibilidade ao conteúdo. Usa um ::before position:fixed em
-   vez de background-attachment:fixed (que falha/estica no mobile); o z-index
-   negativo mantém todo o conteúdo por cima. Trocar a foto: img/fundo.jpg. */
-body::before {
-  content: '';
+/* Fundo (imagem) fixo atrás de TODO o site. O elemento .page-bg é criado
+   e preenchido via JS (comum.js) com URL absoluta — url() relativo no CSS
+   já falhou aqui. Fica em position:fixed com z-index -1, abaixo do conteúdo,
+   e funciona no mobile (sem background-attachment:fixed). */
+.page-bg {
   position: fixed; inset: 0; z-index: -1;
-  background-image:
-    linear-gradient(rgba(8, 8, 10, .58), rgba(8, 8, 10, .74)),
-    url('../img/fundo.jpg');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 a { color: inherit; text-decoration: none; }

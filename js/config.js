@@ -18,9 +18,13 @@ export const NEGOCIO = {
   logo: '',
 
   // Imagem grande da capa (banner no topo da página inicial). Vazio = o topo
-  // fica transparente e mostra o FUNDO da página (definido em .css). Deixamos
-  // vazio porque o fundo da GSC agora cobre o site inteiro (ver estilo.css).
+  // fica transparente e mostra o FUNDO da página. Deixamos vazio porque o
+  // fundo da GSC agora cobre o site inteiro.
   capa: '',
+
+  // Imagem de FUNDO fixa atrás do site inteiro. Coloque em img/ e aponte aqui.
+  // Vazio = sem imagem de fundo (fica só a cor escura).
+  fundo: 'img/fundo.jpg',
 
   // Iniciais usadas quando não há logo. Vazio deixa o site derivar do nome.
   iniciais: '',
