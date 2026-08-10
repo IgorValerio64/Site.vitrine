@@ -10,7 +10,7 @@ export const NEGOCIO = {
   // >>> EXEMPLO. Para devolver: preencha `nome`, coloque o arquivo da marca
   // >>> em img/ e aponte em `logo`, e ajuste `iniciais` se a assinatura da
   // >>> marca for diferente das iniciais do nome.
-  nome: 'Nome da Empresa',
+  nome: 'GunsCore',
   slogan: '',
 
   // Logo do topo. Coloque o arquivo em img/ e escreva 'img/logo.png'.
@@ -27,11 +27,11 @@ export const NEGOCIO = {
   fundo: 'img/fundo.jpg',
 
   // Iniciais usadas quando não há logo. Vazio deixa o site derivar do nome.
-  iniciais: '',
+  iniciais: 'GC',
 
   // Número com código do país (55) + DDD + número, só dígitos.
   // Ex.: (11) 98765-4321  ->  5511987654321
-  whatsapp: '5511999999999',   // <<< TROCAR PELO NÚMERO REAL
+  whatsapp: '5519999360080',   // (19) 99936-0080
 
   // Opcionais: deixe '' para não aparecer.
   instagram: '',            // só o usuário, sem @  (ex.: 'nomedaloja')
