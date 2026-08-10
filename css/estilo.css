@@ -125,14 +125,16 @@ img.logo {
 .menu a.ativo { color: var(--marca); border-bottom-color: var(--marca); }
 
 /* ---------------------------------------------------------------- BOTÕES */
+/* Botões de WhatsApp dentro do conteúdo (topo, cards, rodapé): cor da marca
+   (laranja). O verde fica só no botão flutuante (.whats-flutuante). */
 .btn-whats {
   display: inline-flex; align-items: center; gap: 8px; justify-content: center;
-  background: var(--whats); color: #fff;
+  background: var(--marca); color: #fff;
   padding: 9px 16px; border-radius: 999px;
   font-weight: 700; font-size: 14px; white-space: nowrap;
-  transition: background .15s, transform .1s;
+  transition: filter .15s, transform .1s;
 }
-.btn-whats:hover { background: var(--whats-esc); }
+.btn-whats:hover { filter: brightness(1.1); }
 .btn-whats:active { transform: scale(.97); }
 .btn-whats svg { width: 18px; height: 18px; flex: none; }
 .btn-whats.grande { padding: 12px 22px; font-size: 15px; }
