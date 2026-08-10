@@ -169,9 +169,16 @@ img.logo {
   text-align: center;
 }
 .capa h1 {
-  font-size: 42px; font-weight: 800; letter-spacing: -.035em;
-  color: #fff; line-height: 1.1;
-  text-shadow: 0 2px 22px rgba(0, 0, 0, .6);
+  font-size: clamp(46px, 8vw, 76px); font-weight: 800; letter-spacing: -.02em;
+  color: var(--marca); line-height: 1.05;
+  /* Neon laranja: brilho em camadas que "acende" o fundo escuro atrás,
+     como uma lâmpada de neon por trás do nome. */
+  text-shadow:
+    0 0 7px  rgba(255, 120, 40, .95),
+    0 0 18px rgba(226, 92, 18, .85),
+    0 0 40px rgba(226, 92, 18, .65),
+    0 0 78px rgba(226, 92, 18, .5),
+    0 0 130px rgba(226, 92, 18, .35);
 }
 /* Capa com imagem de fundo: o nome e os botões ficam por cima da foto.
    A camada escura (gradiente) garante a leitura do texto sobre a imagem. */
@@ -464,7 +471,6 @@ footer a:hover { color: var(--marca); }
   .topo-inner > .btn-whats { display: none; }
 
   .capa { padding: 84px 0 72px; }
-  .capa h1 { font-size: 32px; }
   .capa--imagem { min-height: 360px; padding: 60px 0; }
   .capa--imagem h1 { font-size: 34px; }
   .capa-slogan { font-size: 15px; }
