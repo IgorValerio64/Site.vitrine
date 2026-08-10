@@ -15,7 +15,7 @@ export const NEGOCIO = {
 
   // Logo do topo. Coloque o arquivo em img/ e escreva 'img/logo.png'.
   // Deixando vazio (ou se o arquivo faltar), aparece um círculo com as iniciais.
-  logo: '',
+  logo: 'img/logo.png',
 
   // Imagem grande da capa (banner no topo da página inicial). Vazio = o topo
   // fica transparente e mostra o FUNDO da página. Deixamos vazio porque o
