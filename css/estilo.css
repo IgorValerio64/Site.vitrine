@@ -297,6 +297,50 @@ img.logo {
 .card-servico p { margin: 0; color: var(--suave); font-size: 14px; line-height: 1.55; flex: 1; }
 .card-servico .btn-whats { margin-top: 4px; }
 
+/* ---------------------------------------------------------------- CONTA */
+.menu-conta { color: var(--marca) !important; font-weight: 800; }
+
+.conta-wrap { min-height: 58vh; display: flex; align-items: flex-start; justify-content: center; padding: 44px 0 72px; }
+.conta-card {
+  width: 100%; max-width: 400px;
+  background: var(--card); border: 1px solid var(--borda);
+  border-radius: var(--raio); box-shadow: var(--sombra-alta);
+  padding: 26px 24px;
+}
+.conta-card.larga { max-width: 560px; }
+.conta-card h2 { font-size: 22px; margin: 4px 0 8px; }
+.conta-card > p { color: var(--suave); font-size: 14.5px; line-height: 1.6; margin: 0 0 12px; }
+
+.conta-tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--bg); border: 1px solid var(--borda); border-radius: 999px; padding: 4px; }
+.conta-tab { flex: 1; padding: 9px; border: 0; background: transparent; color: var(--suave); font-weight: 700; font-size: 14px; border-radius: 999px; cursor: pointer; font-family: inherit; }
+.conta-tab.ativo { background: var(--marca); color: #fff; }
+
+.campo { margin-bottom: 14px; }
+.campo label { display: block; font-size: 12.5px; font-weight: 700; color: var(--texto); margin-bottom: 6px; }
+.input-conta {
+  width: 100%; background: var(--bg); border: 1px solid var(--borda); border-radius: 10px;
+  padding: 11px 14px; font-size: 15px; color: var(--texto); font-family: inherit; outline: none;
+}
+.input-conta:focus { border-color: var(--marca); }
+.bloco-conta { width: 100%; justify-content: center; margin-top: 4px; }
+
+.conta-msg { min-height: 18px; font-size: 13.5px; margin: 2px 0 10px; }
+.conta-msg.ok { color: #22c55e; }
+.conta-msg.erro { color: #f87171; }
+.conta-obs { font-size: 13px; color: var(--suave); margin-top: 14px; line-height: 1.55; }
+
+.conta-badge { display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px; }
+.conta-badge.pendente { background: #7c2d12; color: #fed7aa; }
+.conta-badge.ok { background: #14532d; color: #bbf7d0; }
+
+.conta-dados { display: grid; gap: 0; margin: 16px 0 4px; }
+.conta-dados > div { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--borda); }
+.conta-dados span { color: var(--suave); font-size: 13px; }
+.conta-dados strong { font-size: 14px; text-align: right; }
+
+.conta-link { display: inline-block; background: none; border: 0; color: var(--suave); font-weight: 700; font-size: 13.5px; cursor: pointer; margin-top: 16px; font-family: inherit; text-decoration: underline; padding: 0; }
+.conta-link:hover { color: var(--texto); }
+
 /* ---------------------------------------------------------------- FILTROS */
 /* O topo é grudado, então a barra de filtros precisa parar logo abaixo dele.
    A altura vem medida pelo JS (--altura-topo): fixar um número aqui quebraria

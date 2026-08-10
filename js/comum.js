@@ -1,6 +1,7 @@
 // Peças usadas pelas duas páginas: topo, rodapé, cartões e o link do
 // WhatsApp. Você não precisa mexer aqui — o conteúdo está em config.js.
 import { NEGOCIO, AVISO_LEGAL, MENSAGEM_GERAL } from './config.js';
+import { getSessao } from './auth.js';
 
 export const esc = (s) =>
   String(s ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;')
@@ -85,12 +86,15 @@ export function montarTopo(pagina) {
         <a href="index.html" class="${pagina === 'home' ? 'ativo' : ''}">Início</a>
         <a href="produtos.html" class="${pagina === 'produtos' ? 'ativo' : ''}">Produtos</a>
         ${pagina === 'home' ? '<a href="#eventos">Eventos</a><a href="#lojas">Loja</a>' : ''}
+        <a id="auth-link" class="menu-conta" href="entrar.html">Entrar</a>
       </nav>
 
       <a class="btn-whats" href="${linkWhats(MENSAGEM_GERAL())}" target="_blank" rel="noopener">
         ${iconeWhats()} WhatsApp
       </a>
     </div>`;
+
+  atualizarAuth(); // ajusta o link Entrar / Área do cliente conforme a sessão
 
   // Arquivo de logo ausente ou com nome errado mostraria o ícone de imagem
   // quebrada — pior do que não ter logo. Aqui volta para as iniciais.
@@ -155,6 +159,18 @@ function medirTopo() {
   const topo = document.getElementById('topo');
   if (!topo) return;
   document.documentElement.style.setProperty('--altura-topo', `${topo.offsetHeight}px`);
+}
+
+// Link de conta no menu: "Entrar" quando deslogado; "Área do cliente" quando
+// há sessão. Roda em segundo plano — se o Supabase demorar, fica "Entrar".
+async function atualizarAuth() {
+  const a = document.getElementById('auth-link');
+  if (!a) return;
+  try {
+    const sessao = await getSessao();
+    if (sessao) { a.textContent = 'Área do cliente'; a.href = 'area.html'; a.classList.add('logado'); }
+    else { a.textContent = 'Entrar'; a.href = 'entrar.html'; a.classList.remove('logado'); }
+  } catch { /* mantém "Entrar" */ }
 }
 
 export function montarRodape() {
