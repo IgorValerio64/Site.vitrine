@@ -171,14 +171,11 @@ img.logo {
 .capa h1 {
   font-size: clamp(46px, 8vw, 76px); font-weight: 800; letter-spacing: -.02em;
   color: var(--marca); line-height: 1.05;
-  /* Neon laranja: brilho em camadas que "acende" o fundo escuro atrás,
-     como uma lâmpada de neon por trás do nome. */
+  /* Brilho laranja suave por trás do nome (glow leve, sem exagero de neon). */
   text-shadow:
-    0 0 7px  rgba(255, 120, 40, .95),
-    0 0 18px rgba(226, 92, 18, .85),
-    0 0 40px rgba(226, 92, 18, .65),
-    0 0 78px rgba(226, 92, 18, .5),
-    0 0 130px rgba(226, 92, 18, .35);
+    0 0 12px rgba(226, 92, 18, .5),
+    0 0 34px rgba(226, 92, 18, .3),
+    0 0 70px rgba(226, 92, 18, .18);
 }
 /* Capa com imagem de fundo: o nome e os botões ficam por cima da foto.
    A camada escura (gradiente) garante a leitura do texto sobre a imagem. */
