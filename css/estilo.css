@@ -448,20 +448,27 @@ main { padding-bottom: 10px; }
   padding: 20px; overflow-y: auto;
 }
 .modal-produto {
-  position: relative; width: 100%; max-width: 460px;
+  position: relative; width: 100%; max-width: 760px;
   background: var(--card); border: 1px solid var(--borda);
   border-radius: var(--raio); box-shadow: var(--sombra-alta);
-  overflow: hidden; max-height: 92vh; display: flex; flex-direction: column;
+  overflow: hidden; max-height: 90vh; display: flex; flex-direction: column;
 }
 .modal-fechar {
   position: absolute; top: 10px; right: 10px; z-index: 2;
   width: 34px; height: 34px; border-radius: 50%; border: 0;
   background: rgba(0, 0, 0, .5); color: #fff; font-size: 22px; line-height: 1; cursor: pointer;
 }
-.modal-midia { aspect-ratio: 4 / 3; background: var(--placeholder); flex: none; }
+.modal-midia { aspect-ratio: 16 / 10; background: var(--placeholder); flex: none; }
 .modal-midia img { width: 100%; height: 100%; object-fit: cover; }
 .modal-midia .sem-foto { width: 100%; height: 100%; }
-.modal-corpo { padding: 20px 22px 22px; overflow-y: auto; }
+.modal-corpo { padding: 22px 24px 24px; overflow-y: auto; flex: 1; min-height: 0; }
+
+/* telas maiores: imagem à esquerda e ficha à direita (mais espaço p/ ler) */
+@media (min-width: 640px) {
+  .modal-produto { flex-direction: row; align-items: stretch; }
+  .modal-midia { width: 46%; aspect-ratio: auto; align-self: stretch; }
+  .modal-corpo { width: 54%; }
+}
 .modal-corpo h2 { font-size: 21px; margin: 6px 0 8px; }
 .modal-desc { color: var(--suave); font-size: 14px; line-height: 1.55; margin: 10px 0 0; }
 .modal-codigo { color: var(--suave); font-size: 12.5px; margin: 12px 0 0; }
