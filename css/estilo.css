@@ -436,6 +436,42 @@ main { padding-bottom: 10px; }
 
 .vazio { grid-column: 1 / -1; text-align: center; color: var(--suave); padding: 50px 0; }
 
+/* -------------------------------------------------------- FICHA / MODAL */
+.card-clicavel { cursor: pointer; }
+.card-ficha { display: inline-block; margin-top: 8px; color: var(--marca); font-weight: 700; font-size: 12.5px; }
+.card-clicavel:hover .card-ficha { text-decoration: underline; }
+
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0, 0, 0, .72);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; overflow-y: auto;
+}
+.modal-produto {
+  position: relative; width: 100%; max-width: 460px;
+  background: var(--card); border: 1px solid var(--borda);
+  border-radius: var(--raio); box-shadow: var(--sombra-alta);
+  overflow: hidden; max-height: 92vh; display: flex; flex-direction: column;
+}
+.modal-fechar {
+  position: absolute; top: 10px; right: 10px; z-index: 2;
+  width: 34px; height: 34px; border-radius: 50%; border: 0;
+  background: rgba(0, 0, 0, .5); color: #fff; font-size: 22px; line-height: 1; cursor: pointer;
+}
+.modal-midia { aspect-ratio: 4 / 3; background: var(--placeholder); flex: none; }
+.modal-midia img { width: 100%; height: 100%; object-fit: cover; }
+.modal-midia .sem-foto { width: 100%; height: 100%; }
+.modal-corpo { padding: 20px 22px 22px; overflow-y: auto; }
+.modal-corpo h2 { font-size: 21px; margin: 6px 0 8px; }
+.modal-desc { color: var(--suave); font-size: 14px; line-height: 1.55; margin: 10px 0 0; }
+.modal-codigo { color: var(--suave); font-size: 12.5px; margin: 12px 0 0; }
+
+.specs { width: 100%; border-collapse: collapse; margin: 16px 0 4px; }
+.specs th, .specs td { text-align: left; padding: 9px 0; border-bottom: 1px solid var(--borda); font-size: 13.5px; vertical-align: top; }
+.specs th { color: var(--suave); font-weight: 600; white-space: nowrap; padding-right: 16px; width: 42%; }
+.specs td { color: var(--texto); font-weight: 600; }
+.modal-corpo .btn-whats { margin-top: 18px; }
+
 /* ---------------------------------------------------------------- RODAPÉ */
 footer { background: var(--card); border-top: 1px solid var(--borda); padding: 28px 0; }
 .rodape-inner {

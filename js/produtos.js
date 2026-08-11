@@ -23,10 +23,10 @@ function filtrados() {
   });
 }
 
-const cardProduto = (p) => {
+const cardProduto = (p, idx) => {
   const preco = dinheiro(p.preco);
   return `
-    <article class="card">
+    <article class="card card-clicavel" data-idx="${idx}">
       <div class="card-midia">
         ${midia(p)}
         ${p.destaque ? '<span class="etiqueta">Destaque</span>' : ''}
@@ -35,6 +35,7 @@ const cardProduto = (p) => {
         ${p.categoria ? `<span class="card-cat">${esc(p.categoria)}</span>` : ''}
         <h3>${esc(p.nome)}</h3>
         ${p.descricao ? `<p class="card-desc">${esc(p.descricao)}</p>` : ''}
+        ${p.specs ? '<span class="card-ficha">Ver especificações →</span>' : ''}
         <div class="card-rodape">
           <span class="preco ${p.preco > 0 ? '' : 'consulta'}">${preco}</span>
           <a class="btn-whats" href="${linkWhats(MENSAGEM(p, preco))}"
@@ -47,16 +48,58 @@ const cardProduto = (p) => {
     </article>`;
 };
 
+// Ficha do produto (modal): foto, descrição, código, especificações e WhatsApp.
+function abrirProduto(p) {
+  const preco = dinheiro(p.preco);
+  const ov = document.createElement('div');
+  ov.className = 'modal-overlay';
+  ov.innerHTML = `
+    <div class="modal-produto" role="dialog" aria-modal="true">
+      <button class="modal-fechar" aria-label="Fechar">&times;</button>
+      <div class="modal-midia">${midia(p)}</div>
+      <div class="modal-corpo">
+        ${p.categoria ? `<span class="card-cat">${esc(p.categoria)}</span>` : ''}
+        <h2>${esc(p.nome)}</h2>
+        <span class="preco ${p.preco > 0 ? '' : 'consulta'}">${preco}</span>
+        ${p.descricao ? `<p class="modal-desc">${esc(p.descricao)}</p>` : ''}
+        ${p.specs ? `
+          <table class="specs"><tbody>
+            ${Object.entries(p.specs).map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}
+          </tbody></table>` : ''}
+        ${p.codigo ? `<p class="modal-codigo">Código: ${esc(p.codigo)}</p>` : ''}
+        <a class="btn-whats grande bloco" target="_blank" rel="noopener"
+           href="${linkWhats(MENSAGEM(p, preco))}">${iconeWhats()} Consultar no WhatsApp</a>
+      </div>
+    </div>`;
+
+  const fechar = () => { ov.remove(); document.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
+  const onKey = (e) => { if (e.key === 'Escape') fechar(); };
+  ov.addEventListener('click', (e) => { if (e.target === ov) fechar(); });
+  ov.querySelector('.modal-fechar').onclick = fechar;
+  document.addEventListener('keydown', onKey);
+  document.body.style.overflow = 'hidden';
+  document.body.appendChild(ov);
+}
+
 function render() {
   const lista = filtrados();
 
   document.getElementById('grade').innerHTML = lista.length
-    ? lista.map(cardProduto).join('')
+    ? lista.map((p, i) => cardProduto(p, i)).join('')
     : `<p class="vazio">Nenhum produto encontrado para
          <strong>${esc(estado.busca)}</strong>.</p>`;
 
   document.getElementById('contador').textContent =
     `${lista.length} ${lista.length === 1 ? 'produto' : 'produtos'}`;
+
+  // clicar no card abre a ficha; clique no botão do WhatsApp segue pro zap.
+  document.querySelectorAll('.card-clicavel').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      if (e.target.closest('.btn-whats')) return;
+      const p = lista[+el.dataset.idx];
+      if (p) abrirProduto(p);
+    });
+  });
 
   document.querySelectorAll('.chip').forEach((c) => {
     c.classList.toggle('ativo', c.dataset.cat === estado.categoria);

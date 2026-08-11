@@ -229,6 +229,10 @@ export const LOJAS = [
 // catálogo real. Em itens controlados, `preco: 0` mostra "Sob consulta" —
 // costuma ser a escolha mais segura, já que o valor depende de documentação,
 // tributos e disponibilidade.
+// O campo `specs` (opcional) aparece na FICHA do produto (ao clicar no card).
+// É um objeto { 'Rótulo': 'Valor' } — a ordem é mantida. As specs abaixo são
+// EXEMPLO/representativas (categorias genéricas); troque pelos números reais
+// dos modelos que você vender.
 export const PRODUTOS = [
   {
     nome: 'Pistola calibre .380',
@@ -237,6 +241,14 @@ export const PRODUTOS = [
     descricao: 'Consulte modelos disponíveis. Venda mediante documentação.',
     codigo: 'ARM-001',
     destaque: true,
+    specs: {
+      'Calibre': '.380 ACP',
+      'Capacidade': '15 + 1 tiros',
+      'Ação': 'Dupla ação (DA/SA)',
+      'Comprimento do cano': '≈ 4" (100 mm)',
+      'Sistema': 'Semiautomática',
+      'Material': 'Polímero e aço',
+    },
   },
   {
     nome: 'Revólver calibre .38',
@@ -244,6 +256,14 @@ export const PRODUTOS = [
     categoria: 'Armas',
     descricao: 'Consulte modelos disponíveis. Venda mediante documentação.',
     codigo: 'ARM-002',
+    specs: {
+      'Calibre': '.38 SPL',
+      'Capacidade': '5 a 6 tiros',
+      'Ação': 'Dupla ação',
+      'Comprimento do cano': '2" a 4"',
+      'Material': 'Aço carbono / inox',
+      'Miras': 'Fixas',
+    },
   },
   {
     nome: 'Carabina de pressão',
@@ -251,6 +271,13 @@ export const PRODUTOS = [
     categoria: 'Armas',
     descricao: 'Modelos para prática esportiva.',
     codigo: 'ARM-003',
+    specs: {
+      'Calibre': '4,5 mm (.177) / 5,5 mm (.22)',
+      'Propulsão': 'Ar comprimido (mola / gás ram)',
+      'Velocidade': 'até ≈ 305 m/s',
+      'Uso': 'Tiro esportivo / prática',
+      'Coronha': 'Polímero ou madeira',
+    },
   },
   {
     nome: 'Munição .380 ACP',
@@ -259,6 +286,13 @@ export const PRODUTOS = [
     descricao: 'Caixa com 50 unidades. Venda controlada.',
     codigo: 'MUN-001',
     destaque: true,
+    specs: {
+      'Calibre': '.380 Auto (9×17 mm)',
+      'Projétil': 'FMJ / EPR',
+      'Peso do projétil': '≈ 95 gr',
+      'Embalagem': 'Caixa com 50',
+      'Uso': 'Pistola',
+    },
   },
   {
     nome: 'Munição .38 SPL',
@@ -266,6 +300,13 @@ export const PRODUTOS = [
     categoria: 'Munições',
     descricao: 'Caixa com 50 unidades. Venda controlada.',
     codigo: 'MUN-002',
+    specs: {
+      'Calibre': '.38 Special',
+      'Projétil': 'FMJ / SJHP',
+      'Peso do projétil': '≈ 158 gr',
+      'Embalagem': 'Caixa com 50',
+      'Uso': 'Revólver',
+    },
   },
   {
     nome: 'Coldre de cintura',
@@ -273,6 +314,13 @@ export const PRODUTOS = [
     categoria: 'Acessórios',
     descricao: 'Kydex, ajuste de retenção. Consulte o modelo compatível.',
     codigo: 'ACE-001',
+    specs: {
+      'Material': 'Kydex',
+      'Porte': 'IWB (interno) / OWB (externo)',
+      'Retenção': 'Ajustável',
+      'Mão': 'Destro / canhoto',
+      'Compatibilidade': 'Conforme o modelo da arma',
+    },
   },
   {
     nome: 'Protetor auricular',
@@ -280,6 +328,12 @@ export const PRODUTOS = [
     categoria: 'Acessórios',
     descricao: 'Abafador tipo concha para uso em estande.',
     codigo: 'ACE-002',
+    specs: {
+      'Tipo': 'Abafador tipo concha (passivo)',
+      'Atenuação (NRR)': '≈ 26 dB',
+      'Ajuste': 'Haste regulável',
+      'Uso': 'Estande / campo',
+    },
   },
   {
     nome: 'Cofre para arma',
@@ -288,6 +342,13 @@ export const PRODUTOS = [
     descricao: 'Armazenamento seguro, com fechadura eletrônica.',
     codigo: 'ACE-003',
     destaque: true,
+    specs: {
+      'Fechadura': 'Eletrônica + chave de emergência',
+      'Material': 'Aço',
+      'Capacidade': '1 a 2 armas curtas',
+      'Fixação': 'Furos para parede/móvel',
+      'Interior': 'Revestido',
+    },
   },
   {
     nome: 'Kit de limpeza',
@@ -295,6 +356,11 @@ export const PRODUTOS = [
     categoria: 'Manutenção',
     descricao: 'Hastes, escovas, flanelas e óleo lubrificante.',
     codigo: 'MAN-001',
+    specs: {
+      'Itens': 'Hastes, escovas, flanelas e óleo',
+      'Compatibilidade': 'Multicalibre',
+      'Uso': 'Manutenção geral',
+    },
   },
 ];
 
