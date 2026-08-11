@@ -451,7 +451,7 @@ main { padding-bottom: 10px; }
   position: relative; width: 100%; max-width: 760px;
   background: var(--card); border: 1px solid var(--borda);
   border-radius: var(--raio); box-shadow: var(--sombra-alta);
-  overflow: hidden; max-height: 90vh; display: flex; flex-direction: column;
+  overflow: hidden; height: 82vh; display: flex; flex-direction: column;
 }
 .modal-fechar {
   position: absolute; top: 10px; right: 10px; z-index: 2;
@@ -461,11 +461,12 @@ main { padding-bottom: 10px; }
 .modal-midia { aspect-ratio: 16 / 10; background: var(--placeholder); flex: none; }
 .modal-midia img { width: 100%; height: 100%; object-fit: cover; }
 .modal-midia .sem-foto { width: 100%; height: 100%; }
-.modal-corpo { padding: 22px 24px 24px; overflow-y: auto; flex: 1; min-height: 0; }
+/* corpo em coluna: cabeçalho/abas/botão fixos, só o conteúdo da aba rola */
+.modal-corpo { padding: 22px 24px 24px; flex: 1; min-height: 0; display: flex; flex-direction: column; }
 
 /* telas maiores: imagem à esquerda e ficha à direita (mais espaço p/ ler) */
 @media (min-width: 640px) {
-  .modal-produto { flex-direction: row; align-items: stretch; }
+  .modal-produto { flex-direction: row; align-items: stretch; height: 540px; max-height: 90vh; }
   .modal-midia { width: 46%; aspect-ratio: auto; align-self: stretch; }
   .modal-corpo { width: 54%; }
 }
@@ -474,7 +475,7 @@ main { padding-bottom: 10px; }
 .modal-codigo { color: var(--suave); font-size: 12.5px; margin: 12px 0 0; }
 
 /* abas da ficha (Descrição / Ficha técnica / Documentação / FAQ) */
-.ficha-tabs { display: flex; gap: 2px; margin: 16px 0 0; border-bottom: 1px solid var(--borda); overflow-x: auto; }
+.ficha-tabs { display: flex; gap: 2px; margin: 16px 0 0; border-bottom: 1px solid var(--borda); overflow-x: auto; flex: none; }
 .ficha-tabs::-webkit-scrollbar { height: 0; }
 .ficha-tab {
   flex: none; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px;
@@ -484,7 +485,7 @@ main { padding-bottom: 10px; }
 .ficha-tab:hover { color: var(--texto); }
 .ficha-tab.ativo { color: var(--marca); border-bottom-color: var(--marca); }
 
-.ficha-panes { margin-top: 14px; }
+.ficha-panes { margin-top: 14px; flex: 1; min-height: 0; overflow-y: auto; }
 .ficha-pane { display: none; }
 .ficha-pane.ativo { display: block; }
 .ficha-pane p { color: var(--suave); font-size: 14px; line-height: 1.6; margin: 0 0 10px; }
@@ -500,7 +501,7 @@ main { padding-bottom: 10px; }
 .faq-item strong { display: block; color: var(--texto); font-size: 14px; margin-bottom: 4px; }
 .faq-item p { margin: 0; }
 
-.modal-corpo .btn-whats { margin-top: 18px; }
+.modal-corpo .btn-whats { margin-top: 18px; flex: none; }
 
 /* ---------------------------------------------------------------- RODAPÉ */
 footer { background: var(--card); border-top: 1px solid var(--borda); padding: 28px 0; }
