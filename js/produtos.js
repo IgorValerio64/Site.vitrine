@@ -1,4 +1,4 @@
-import { PRODUTOS, MENSAGEM } from './config.js';
+import { PRODUTOS, MENSAGEM, DOC_ENVIO, FAQ } from './config.js';
 import { esc, dinheiro, linkWhats, iconeWhats, midia, montarTopo, montarRodape } from './comum.js';
 
 // Página do catálogo: busca, filtro por categoria e pedido pelo WhatsApp.
@@ -48,9 +48,20 @@ const cardProduto = (p, idx) => {
     </article>`;
 };
 
-// Ficha do produto (modal): foto, descrição, código, especificações e WhatsApp.
+// Ficha do produto (modal) com abas: Descrição, Ficha técnica, Documentação
+// e envio, Perguntas frequentes. As duas últimas são iguais p/ todos (config).
 function abrirProduto(p) {
   const preco = dinheiro(p.preco);
+  const desc = p.descLonga || p.descricao || '';
+
+  const paneDesc = desc ? `<p>${esc(desc)}</p>` : '<p class="ficha-vazio">Sem descrição.</p>';
+  const paneSpecs = p.specs
+    ? `<ul class="ficha-specs">${Object.entries(p.specs).map(([k, v]) => `<li><strong>${esc(k)}:</strong> ${esc(v)}</li>`).join('')}</ul>
+       ${p.codigo ? `<p class="modal-codigo">Código: ${esc(p.codigo)}</p>` : ''}`
+    : '<p class="ficha-vazio">Ficha técnica em breve.</p>';
+  const paneDoc = DOC_ENVIO.map((s) => `<h4>${esc(s.titulo)}</h4><p>${esc(s.texto)}</p>`).join('');
+  const paneFaq = FAQ.map((f) => `<div class="faq-item"><strong>${esc(f.pergunta)}</strong><p>${esc(f.resposta)}</p></div>`).join('');
+
   const ov = document.createElement('div');
   ov.className = 'modal-overlay';
   ov.innerHTML = `
@@ -61,16 +72,31 @@ function abrirProduto(p) {
         ${p.categoria ? `<span class="card-cat">${esc(p.categoria)}</span>` : ''}
         <h2>${esc(p.nome)}</h2>
         <span class="preco ${p.preco > 0 ? '' : 'consulta'}">${preco}</span>
-        ${p.descricao ? `<p class="modal-desc">${esc(p.descricao)}</p>` : ''}
-        ${p.specs ? `
-          <table class="specs"><tbody>
-            ${Object.entries(p.specs).map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}
-          </tbody></table>` : ''}
-        ${p.codigo ? `<p class="modal-codigo">Código: ${esc(p.codigo)}</p>` : ''}
+
+        <div class="ficha-tabs">
+          <button class="ficha-tab ativo" data-t="desc">Descrição</button>
+          <button class="ficha-tab" data-t="specs">Ficha técnica</button>
+          <button class="ficha-tab" data-t="doc">Documentação e envio</button>
+          <button class="ficha-tab" data-t="faq">Perguntas frequentes</button>
+        </div>
+        <div class="ficha-panes">
+          <div class="ficha-pane ativo" data-p="desc">${paneDesc}</div>
+          <div class="ficha-pane" data-p="specs">${paneSpecs}</div>
+          <div class="ficha-pane" data-p="doc">${paneDoc}</div>
+          <div class="ficha-pane" data-p="faq">${paneFaq}</div>
+        </div>
+
         <a class="btn-whats grande bloco" target="_blank" rel="noopener"
            href="${linkWhats(MENSAGEM(p, preco))}">${iconeWhats()} Consultar no WhatsApp</a>
       </div>
     </div>`;
+
+  ov.querySelectorAll('.ficha-tab').forEach((tab) => {
+    tab.onclick = () => {
+      ov.querySelectorAll('.ficha-tab').forEach((t) => t.classList.toggle('ativo', t === tab));
+      ov.querySelectorAll('.ficha-pane').forEach((pn) => pn.classList.toggle('ativo', pn.dataset.p === tab.dataset.t));
+    };
+  });
 
   const fechar = () => { ov.remove(); document.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
   const onKey = (e) => { if (e.key === 'Escape') fechar(); };

@@ -239,6 +239,10 @@ export const PRODUTOS = [
     preco: 0,
     categoria: 'Armas',
     descricao: 'Consulte modelos disponíveis. Venda mediante documentação.',
+    descLonga: 'Pistola semiautomática em calibre .380 ACP, voltada para defesa pessoal e '
+      + 'porte. Estrutura em polímero e ferrolho em aço, boa capacidade de munição e manejo '
+      + 'confortável. Consulte os modelos disponíveis em estoque — a venda é feita mediante '
+      + 'a documentação exigida por lei.',
     codigo: 'ARM-001',
     destaque: true,
     specs: {
@@ -255,6 +259,9 @@ export const PRODUTOS = [
     preco: 0,
     categoria: 'Armas',
     descricao: 'Consulte modelos disponíveis. Venda mediante documentação.',
+    descLonga: 'Revólver calibre .38 SPL, opção clássica e confiável para defesa. Ação dupla, '
+      + 'construção robusta em aço e disponível em diferentes comprimentos de cano. Consulte '
+      + 'os modelos em estoque — venda mediante documentação.',
     codigo: 'ARM-002',
     specs: {
       'Calibre': '.38 SPL',
@@ -270,6 +277,9 @@ export const PRODUTOS = [
     preco: 0,
     categoria: 'Armas',
     descricao: 'Modelos para prática esportiva.',
+    descLonga: 'Carabina de pressão para tiro esportivo e prática de pontaria, com propulsão '
+      + 'por ar comprimido. Boa opção para treino sem a burocracia das armas de fogo. Consulte '
+      + 'calibres e modelos disponíveis.',
     codigo: 'ARM-003',
     specs: {
       'Calibre': '4,5 mm (.177) / 5,5 mm (.22)',
@@ -361,6 +371,64 @@ export const PRODUTOS = [
       'Compatibilidade': 'Multicalibre',
       'Uso': 'Manutenção geral',
     },
+  },
+];
+
+// =====================================================================
+//  ABAS "DOCUMENTAÇÃO E ENVIO" e "PERGUNTAS FREQUENTES" da ficha do produto.
+//  É o MESMO conteúdo para todos os produtos.
+//
+//  >>> IMPORTANTE: confirme estes textos com o responsável legal da GunsCore
+//  >>> e preencha os dados reais (CNPJ, credenciamento). São um rascunho.
+// =====================================================================
+
+export const DOC_ENVIO = [
+  {
+    titulo: 'Documentação necessária',
+    texto: 'Armas de fogo e munições são Produtos Controlados pelo Exército (PCE). '
+      + 'A aquisição exige Certificado de Registro (CR) ativo ou autorização de compra '
+      + 'da Polícia Federal (SINARM), conforme a sua categoria e a legislação vigente. '
+      + 'Acessórios não controlados (coldres, protetores, etc.) não exigem documentação.',
+  },
+  {
+    titulo: 'Como funciona a compra',
+    texto: 'O site é uma vitrine: a reserva do produto é feita pelo WhatsApp. O faturamento '
+      + 'e o envio acontecem somente após a validação da sua documentação e a emissão dos '
+      + 'registros exigidos (como CRAF e guia de tráfego), quando for o caso.',
+  },
+  {
+    titulo: 'Envio',
+    texto: 'O despacho de produtos controlados é feito por transportadora homologada, com '
+      + 'rastreio, sempre conforme as normas do Exército Brasileiro. Itens não controlados '
+      + 'seguem por envio comum. Prazos e valores são confirmados no atendimento.',
+  },
+  {
+    titulo: 'Suporte',
+    texto: 'Nossa equipe acompanha a conferência da documentação pra agilizar a entrega. '
+      + 'Ficou em dúvida sobre o seu enquadramento? Fale com a gente antes de fechar.',
+  },
+];
+
+export const FAQ = [
+  {
+    pergunta: 'Preciso de CR para comprar?',
+    resposta: 'Para armas e munições, sim — CR ativo ou autorização de compra da Polícia '
+      + 'Federal, conforme a sua categoria. Acessórios não exigem documentação.',
+  },
+  {
+    pergunta: 'Dá pra comprar direto pelo site?',
+    resposta: 'A negociação e a reserva são feitas pelo WhatsApp. A venda de itens controlados '
+      + 'segue todo o processo legal exigido antes do envio.',
+  },
+  {
+    pergunta: 'Qual a idade mínima?',
+    resposta: 'A aquisição de arma de fogo é permitida a maiores de 25 anos, habilitados e '
+      + 'com a documentação em dia.',
+  },
+  {
+    pergunta: 'Como recebo o produto?',
+    resposta: 'Depois da validação da documentação, o envio é feito por transportadora '
+      + 'homologada, com código de rastreio.',
   },
 ];
 
