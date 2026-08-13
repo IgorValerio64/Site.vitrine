@@ -50,6 +50,37 @@ export const NEGOCIO = {
 };
 
 // =====================================================================
+//  VERIFICAÇÃO DE IDADE — a tela que aparece antes do site.
+//
+//  Padrão do setor: fabricantes e lojas de armas barram a entrada de menores
+//  antes de mostrar qualquer conteúdo.
+//
+//  A resposta fica guardada no navegador por `lembrarDias`, para não
+//  perguntar a cada visita. Quem responde "Não" vê o aviso e não entra.
+//
+//  `ativo: false` desliga a tela inteira.
+//
+//  OBSERVAÇÃO: 18 anos é a idade usada para VER o conteúdo. A compra de arma
+//  de fogo exige 25 anos — isso continua no aviso legal do rodapé.
+// =====================================================================
+
+export const VERIFICACAO_IDADE = {
+  ativo: true,
+  idade: 18,
+  lembrarDias: 30,
+
+  titulo: 'Seja bem-vindo à GunsCore',
+  pergunta: 'Você tem mais de 18 anos de idade?',
+  sim: 'Sim',
+  nao: 'Não',
+  aviso: 'O conteúdo deste site não pode ser exibido até você completar 18 anos de idade.',
+
+  // Mostrado a quem responde "Não".
+  recusa: 'Acesso não autorizado. Este site é destinado exclusivamente a maiores '
+    + 'de 18 anos. Volte quando completar a idade mínima.',
+};
+
+// =====================================================================
 //  AVISO LEGAL — aparece no rodapé de todas as páginas.
 //
 //  Comércio de armas e munições é regulamentado. O site é uma VITRINE:
@@ -214,6 +245,103 @@ export const LOJAS = [
 ];
 
 // =====================================================================
+//  CATEGORIAS — o menu de departamentos do topo.
+//
+//  Cada departamento abre um painel com grupos (Pistolas, Revólveres...),
+//  e cada grupo lista MARCAS e CALIBRES, ou uma lista simples de ITENS.
+//  Clicar em qualquer um leva ao catálogo já filtrado.
+//
+//  Para o filtro devolver resultado, os produtos precisam ter os campos
+//  `tipo`, `marca` e `calibre` preenchidos com os MESMOS nomes usados aqui.
+//
+//  >>> ESTA LISTA VEIO DE UM SITE DO RAMO, COMO PONTO DE PARTIDA.
+//  >>> Confirme com a loja o que ela realmente trabalha antes de publicar:
+//  >>> anunciar marca ou calibre que não se vende gera contato frustrado.
+//
+//  Departamento sem grupos ou lista vazia [] não aparece no menu.
+// =====================================================================
+
+export const CATEGORIAS = [
+  {
+    nome: 'Armas Curtas',
+    grupos: [
+      {
+        nome: 'Pistolas',
+        marcas: ['AREX', 'BROWNING', 'BERETTA', 'CBC', 'CHIAPPA', 'CZ', 'GLOCK',
+                 'RUGER', 'SIG SAUER', 'SMITH&WESSON', 'TAURUS', 'IWI'],
+        calibres: ['.9MM', '.40', '.44-40', '.38 TPC', '.22 LR', '.45', '.10MM',
+                   '.380', '.6.35MM', '.5.7X28'],
+      },
+      {
+        nome: 'Revólveres',
+        marcas: ['ROSSI', 'TAURUS'],
+        calibres: ['.22 LR', '.22 WMR', '.22 MAGNUM', '.357 MAG', '.36 GA', '.38',
+                   '.380', '.44 MAG', '.45 AUTO', '.454', '.9MM'],
+      },
+    ],
+  },
+  {
+    nome: 'Armas Longas',
+    grupos: [
+      {
+        nome: 'Carabinas',
+        marcas: ['CBC', 'CHIAPPA', 'CZ', 'FIRE EAGLE', 'ROSSI', 'RUGER', 'TAURUS'],
+        calibres: ['.22 LR', '.30-30', '.357 MAG', '.38', '.44-40', '.9 MM'],
+      },
+      {
+        nome: 'Fuzil',
+        marcas: ['FIRE EAGLE', 'MOSSBERG', 'RUGER', 'SAVAGE', 'SMITH&WESSON', 'TAURUS', 'IWI'],
+        calibres: ['.223 REMINGTON', '.300 BLK', '.308 WIN', '.5,56', '.7,62'],
+      },
+      {
+        nome: 'Espingardas',
+        marcas: ['BROWNING', 'BRESCIA', 'CBC', 'HATSAN', 'HUGLU', 'KHAN', 'YILDIZ',
+                 'ARMSAN', 'WINCHESTER'],
+        calibres: ['.12 GA', '.20 GA', '.28 GA', '.32 GA', '.36 GA'],
+      },
+      {
+        nome: 'Rifles',
+        marcas: ['BROWNING', 'BERGARA', 'CBC', 'CHIAPPA', 'CZ', 'MOSSBERG', 'SAVAGE',
+                 'WINCHESTER', 'SMITH&WESSON', 'BRV'],
+        calibres: ['.22 LR', '.22 MAG', '.22 WMR', '.308', '.308 WIN'],
+      },
+    ],
+  },
+  {
+    nome: 'Munições',
+    grupos: [
+      {
+        marcas: ['CBC', 'CCI', 'FEDERAL', 'FIOCCHI', 'HORNADY', 'NORMA', 'PMC',
+                 'REMINGTON', 'WINCHESTER'],
+        calibres: ['.9MM', '.10MM', '.12 GA', '.17 HMR', '.20 GA', '.22 LR', '.22 WMR',
+                   '.223 REM', '.25 AUTO', '.28 GA', '.300 BLK', '.308 WIN', '.32 AUTO',
+                   '.32 GA', '.32 S&W', '.357 MAG', '.36 GA', '.38 SPL', '.38 TPC',
+                   '.380', '.40 S&W', '.44', '.44-40', '.45 AUTO', '.454', '.5,56',
+                   '.500 S&W', '.7,62', '.762X39', '5.7X28MM', '7,62X51MM'],
+      },
+    ],
+  },
+  {
+    nome: 'Insumo',
+    grupos: [
+      { itens: ['Espoleta', 'Pólvora', 'Projéteis'] },
+    ],
+  },
+  {
+    nome: 'Acessórios',
+    grupos: [
+      { nome: 'Miras e Óptica', itens: ['Lunetas', 'Mira Truglo', 'Red Dot', 'Anéis e Mounts'] },
+      { nome: 'Acessórios Táticos', itens: ['Abafadores', 'Case', 'Caixa de Munição',
+        'Expositores', 'Lanternas', 'Bandoleiras', 'Bipés e Apoios', 'Coldres', 'Kit de Limpeza'] },
+      { nome: 'Armas de Pressão', itens: ['Cilindro CO2', 'Carabinas de Pressão', 'Chumbinho'] },
+      { nome: 'Camping', itens: ['Cilindro CO2', 'Barracas', 'Cadeiras', 'Copos e Canecas', 'Mesas'] },
+      { nome: 'Cutelaria', itens: ['Canivetes', 'Facas'] },
+      { nome: 'Peças e Upgrades', itens: ['Parafusos', 'Bumper', 'Carregadores', 'Empunhaduras'] },
+    ],
+  },
+];
+
+// =====================================================================
 //  PRODUTOS — aparecem na página do catálogo.
 //
 //    nome      obrigatório
@@ -236,6 +364,9 @@ export const LOJAS = [
 export const PRODUTOS = [
   {
     nome: 'Pistola calibre .380',
+    tipo: 'Pistolas',
+    marca: 'TAURUS',
+    calibre: '.380',
     preco: 0,
     categoria: 'Armas',
     descricao: 'Consulte modelos disponíveis. Venda mediante documentação.',
@@ -256,6 +387,9 @@ export const PRODUTOS = [
   },
   {
     nome: 'Revólver calibre .38',
+    tipo: 'Revólveres',
+    marca: 'TAURUS',
+    calibre: '.38',
     preco: 0,
     categoria: 'Armas',
     descricao: 'Consulte modelos disponíveis. Venda mediante documentação.',
@@ -274,6 +408,9 @@ export const PRODUTOS = [
   },
   {
     nome: 'Carabina de pressão',
+    tipo: 'Armas de Pressão',
+    marca: 'CBC',
+    calibre: '.22 LR',
     preco: 0,
     categoria: 'Armas',
     descricao: 'Modelos para prática esportiva.',
@@ -291,6 +428,9 @@ export const PRODUTOS = [
   },
   {
     nome: 'Munição .380 ACP',
+    tipo: 'Munições',
+    marca: 'CBC',
+    calibre: '.380',
     preco: 0,
     categoria: 'Munições',
     descricao: 'Caixa com 50 unidades. Venda controlada.',
@@ -306,6 +446,9 @@ export const PRODUTOS = [
   },
   {
     nome: 'Munição .38 SPL',
+    tipo: 'Munições',
+    marca: 'CBC',
+    calibre: '.38 SPL',
     preco: 0,
     categoria: 'Munições',
     descricao: 'Caixa com 50 unidades. Venda controlada.',
@@ -320,6 +463,7 @@ export const PRODUTOS = [
   },
   {
     nome: 'Coldre de cintura',
+    tipo: 'Coldres',
     preco: 249.9,
     categoria: 'Acessórios',
     descricao: 'Kydex, ajuste de retenção. Consulte o modelo compatível.',
@@ -334,6 +478,7 @@ export const PRODUTOS = [
   },
   {
     nome: 'Protetor auricular',
+    tipo: 'Abafadores',
     preco: 129.9,
     categoria: 'Acessórios',
     descricao: 'Abafador tipo concha para uso em estande.',
@@ -347,6 +492,7 @@ export const PRODUTOS = [
   },
   {
     nome: 'Cofre para arma',
+    tipo: 'Case',
     preco: 899.9,
     categoria: 'Acessórios',
     descricao: 'Armazenamento seguro, com fechadura eletrônica.',
@@ -362,6 +508,7 @@ export const PRODUTOS = [
   },
   {
     nome: 'Kit de limpeza',
+    tipo: 'Kit de Limpeza',
     preco: 189.9,
     categoria: 'Manutenção',
     descricao: 'Hastes, escovas, flanelas e óleo lubrificante.',
@@ -431,6 +578,130 @@ export const FAQ = [
       + 'homologada, com código de rastreio.',
   },
 ];
+
+// =====================================================================
+//  AVALIAÇÕES — depoimentos de clientes, no fim da página inicial.
+//
+//  NÃO DÁ PARA PUXAR DO GOOGLE AUTOMATICAMENTE: a página de avaliações não
+//  permite raspagem, e a via oficial (Google Places API) exige chave e conta
+//  de faturamento. Então as avaliações são copiadas para cá na mão.
+//
+//  COMO PREENCHER
+//  1. Abra a ficha da loja no Google Maps
+//  2. Vá em "Avaliações"
+//  3. Para cada uma que quiser mostrar, copie o NOME e o TEXTO exatamente
+//     como estão e cole abaixo
+//
+//  Não invente depoimento nem edite o texto de quem escreveu: além de ser
+//  desonesto com o cliente, avaliação falsa é fácil de detectar e derruba a
+//  credibilidade da loja.
+//
+//    nome    quem escreveu
+//    texto   o depoimento
+//    nota    de 1 a 5 (padrão: 5)
+//    foto    opcional: 'img/cliente.jpg'. Sem foto, mostra a inicial
+//
+//  `link` é o endereço da ficha no Google, para o "Veja aqui".
+//  Lista vazia [] esconde a seção inteira.
+// =====================================================================
+
+export const AVALIACOES = {
+  titulo: 'Loja 5.0 Estrelas',
+  subtitulo: 'no Google Avaliações',
+  nota: '5.0',
+  link: '',   // <<< cole aqui o link da ficha da loja no Google Maps
+
+  // Avaliações reais, transcritas das capturas do Google Maps.
+  // Texto mantido palavra por palavra, sem correção nem corte.
+  itens: [
+    {
+      nome: 'Gabriel Sacilotto Costa',
+      nota: 5,
+      quando: '2 meses atrás',
+      texto: 'Excelente experiência! A Guns Core foge do padrão do mercado tradicional, '
+        + 'oferecendo um atendimento realmente diferenciado. A equipe é muito prestativa, '
+        + 'tira todas as dúvidas e te ajuda a fazer a melhor escolha sem pressão. Ambiente '
+        + 'seguro, confortável e acolhedor. E um detalhe que faz a diferença: o café é excelente!',
+    },
+    {
+      nome: 'Débora Baboni',
+      nota: 5,
+      quando: '2 meses atrás',
+      texto: 'A loja é diferente de tudo o que já conheci no mercado. Com atendimento '
+        + 'personalizado para cada tipo de cliente. Nos recebeu muito bem e tirou todas as '
+        + 'dúvidas que tínhamos. Nos serviram um café maravilhoso, coca gelada e até água '
+        + 'com gás. Super recomendo.',
+    },
+    {
+      nome: 'Bruno Raya',
+      nota: 5,
+      quando: '2 meses atrás',
+      selo: 'Local Guide',
+      // O \n preserva as quebras de linha do original.
+      texto: 'Loja extremamente diferenciada, com um conceito único e empreendimentos fora '
+        + 'de tudo o que já vi.\n'
+        + 'Ambiente aconchegante, completo e muito bem estruturado, oferecendo café, diversas '
+        + 'bebidas e uma experiência realmente agradável.\n'
+        + 'O atendimento é impecável do início ao fim, com muita qualidade, atenção e '
+        + 'profissionalismo. Uma experiência diferenciada em todos os detalhes. Recomendo fortemente!',
+    },
+    {
+      nome: 'luis fernando zambon',
+      nota: 5,
+      quando: 'um mês atrás',
+      texto: 'Sensacional, atenciosos, explicam tudo , ambiente muito bacana , todos '
+        + 'educados e gente boa demaisss!! Nota mil!',
+    },
+    {
+      // Confira este nome na ficha do Google: na captura, a fonte não deixa
+      // distinguir "I" maiúsculo de "l" minúsculo.
+      nome: 'Pdl Martins',
+      nota: 5,
+      quando: '2 meses atrás',
+      texto: 'Ótima experiência! Equipe capacitada e muito atenciosa! Recomendo demais! '
+        + 'Atendimento diferenciado! Sucesso',
+    },
+    {
+      nome: 'Fernando Iwamura',
+      nota: 5,
+      quando: '3 semanas atrás',
+      texto: 'Otimo atendimento e experiência! Realmente diferenciados!',
+    },
+    {
+      nome: 'Matheus Cunha',
+      nota: 5,
+      quando: 'uma semana atrás',
+      texto: 'Melhor loja de armas e equipamento de Piracicaba',
+    },
+    {
+      nome: 'João Victor de Almeida Zinsly',
+      nota: 5,
+      quando: 'um mês atrás',
+      texto: 'Atendimento excelente!',
+    },
+  ],
+};
+
+// =====================================================================
+//  GRUPO VIP DO WHATSAPP — faixa no fim da página inicial.
+//
+//  `url` é o link de convite do grupo. Para pegar: abra o grupo no
+//  WhatsApp > toque no nome do grupo > Convidar via link > Copiar link.
+//  Fica no formato https://chat.whatsapp.com/XXXXXXXX
+//
+//  Sem `url`, a faixa não aparece.
+// =====================================================================
+
+export const GRUPO_VIP = {
+  chapeu: 'Novidades diárias',
+  titulo: 'Grupo VIP WhatsApp',
+  texto: 'Receba ofertas e novidades de primeira mão.',
+  botao: 'Entrar no grupo',
+  url: '',   // <<< cole aqui o link de convite do grupo
+
+  // Imagem de fundo da faixa (opcional). Ex.: 'img/faixa-grupo.jpg'
+  imagem: '',
+};
 
 // =====================================================================
 //  MENSAGENS DO WHATSAPP

@@ -1,6 +1,6 @@
 // Peças usadas pelas duas páginas: topo, rodapé, cartões e o link do
 // WhatsApp. Você não precisa mexer aqui — o conteúdo está em config.js.
-import { NEGOCIO, AVISO_LEGAL, MENSAGEM_GERAL } from './config.js';
+import { NEGOCIO, AVISO_LEGAL, CATEGORIAS, MENSAGEM_GERAL } from './config.js';
 import { getSessao } from './auth.js';
 
 export const esc = (s) =>
@@ -62,6 +62,84 @@ export const midia = (item) =>
          <span>${esc(item.nome.trim()[0] || '?')}</span>
        </div>`;
 
+// --- menu de departamentos -------------------------------------------
+// Cada link leva ao catálogo com o filtro na URL (?tipo=, ?marca=, ?calibre=),
+// que a página de produtos lê e aplica. Assim o filtro sobrevive a recarregar
+// a página e pode ser compartilhado por link.
+const linkFiltro = (chave, valor) =>
+  `produtos.html?${chave}=${encodeURIComponent(valor)}`;
+
+const colunaLista = (titulo, valores, chave) => !valores?.length ? '' : `
+  <div class="mega-coluna">
+    <span class="mega-coluna-t">${esc(titulo)}</span>
+    <ul>
+      ${valores.map((v) => `<li><a href="${linkFiltro(chave, v)}">${esc(v)}</a></li>`).join('')}
+    </ul>
+  </div>`;
+
+const grupoHTML = (g) => `
+  <div class="mega-grupo">
+    ${g.nome ? `<h3><a href="${linkFiltro('tipo', g.nome)}">${esc(g.nome)}</a></h3>` : ''}
+    <div class="mega-colunas">
+      ${colunaLista('Marcas', g.marcas, 'marca')}
+      ${colunaLista('Calibres', g.calibres, 'calibre')}
+      ${colunaLista(g.nome ? '' : 'Categorias', g.itens, 'tipo')}
+    </div>
+  </div>`;
+
+function menuCategoriasHTML() {
+  const deps = (CATEGORIAS || []).filter((c) => c.grupos?.length);
+  if (!deps.length) return '';
+
+  return `
+    <nav class="mega" id="mega">
+      ${deps.map((c, i) => `
+        <div class="mega-item">
+          <button class="mega-botao" data-dep="${i}" aria-expanded="false">
+            ${esc(c.nome)} <span class="mega-chev">⌄</span>
+          </button>
+          <div class="mega-painel" data-painel="${i}" hidden>
+            <div class="container mega-painel-inner">
+              ${c.grupos.map(grupoHTML).join('')}
+            </div>
+          </div>
+        </div>`).join('')}
+    </nav>`;
+}
+
+function ligarMega() {
+  const mega = document.getElementById('mega');
+  if (!mega) return;
+
+  const fechaTudo = () => {
+    mega.querySelectorAll('.mega-painel').forEach((p) => { p.hidden = true; });
+    mega.querySelectorAll('.mega-botao').forEach((b) => {
+      b.setAttribute('aria-expanded', 'false');
+      b.classList.remove('aberto');
+    });
+  };
+
+  mega.querySelectorAll('.mega-botao').forEach((b) => {
+    b.onclick = (ev) => {
+      ev.stopPropagation();
+      const painel = mega.querySelector(`[data-painel="${b.dataset.dep}"]`);
+      const abrindo = painel.hidden;
+      fechaTudo();
+      if (abrindo) {
+        painel.hidden = false;
+        b.setAttribute('aria-expanded', 'true');
+        b.classList.add('aberto');
+      }
+    };
+  });
+
+  // Clique fora e ESC fecham — sem isso o painel fica aberto atrapalhando.
+  document.addEventListener('click', (ev) => {
+    if (!ev.target.closest('.mega-painel')) fechaTudo();
+  });
+  document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') fechaTudo(); });
+}
+
 // `pagina` marca o link ativo no menu: 'home' ou 'produtos'.
 export function montarTopo(pagina) {
   document.title = `${NEGOCIO.nome}${pagina === 'produtos' ? ' — Catálogo' : ''}`;
@@ -92,8 +170,10 @@ export function montarTopo(pagina) {
       <a class="btn-whats" href="${linkWhats(MENSAGEM_GERAL())}" target="_blank" rel="noopener">
         ${iconeWhats()} WhatsApp
       </a>
-    </div>`;
+    </div>
+    ${menuCategoriasHTML()}`;
 
+  ligarMega();
   atualizarAuth(); // ajusta o link Entrar / Área do cliente conforme a sessão
 
   // Arquivo de logo ausente ou com nome errado mostraria o ícone de imagem

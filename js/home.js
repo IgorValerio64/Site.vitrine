@@ -1,4 +1,7 @@
-import { NEGOCIO, SOBRE, SERVICOS, EVENTOS, LOJAS, SECAO_LOJA, MENSAGEM_EVENTO, MENSAGEM_SERVICO } from './config.js';
+import {
+  NEGOCIO, SOBRE, SERVICOS, EVENTOS, LOJAS, SECAO_LOJA,
+  AVALIACOES, GRUPO_VIP, MENSAGEM_EVENTO, MENSAGEM_SERVICO,
+} from './config.js';
 import {
   esc, linkWhats, iconeWhats, iconeLoja, iconeMapa, midia,
   montarTopo, montarRodape,
@@ -153,6 +156,100 @@ if (LOJAS.length) {
     </div>`;
 } else {
   secaoLojas.remove();
+}
+
+// --- avaliações -------------------------------------------------------
+const estrelas = (n = 5) =>
+  `<span class="estrelas" aria-label="${n} de 5 estrelas">${'★'.repeat(n)}${'☆'.repeat(5 - n)}</span>`;
+
+// Sem a tag <header> aqui: o CSS do site já usa <header> para a barra do topo,
+// e um cabeçalho de card herdando aquilo vira uma barra grudada na tela.
+const cardAvaliacao = (a) => `
+  <article class="card-avaliacao">
+    <div class="ava-topo">
+      ${a.foto
+        ? `<img class="ava-foto" src="${esc(a.foto)}" alt="" loading="lazy" />`
+        : `<span class="ava-inicial">${esc((a.nome || '?').trim()[0])}</span>`}
+      <div class="ava-quem">
+        <strong>${esc(a.nome)}</strong>
+        <span class="ava-linha">
+          ${estrelas(a.nota || 5)}
+          ${a.quando ? `<span class="ava-quando">${esc(a.quando)}</span>` : ''}
+          ${a.selo ? `<span class="ava-selo">${esc(a.selo)}</span>` : ''}
+        </span>
+      </div>
+    </div>
+    <p>${esc(a.texto).replace(/\n/g, '<br>')}</p>
+  </article>`;
+
+const secaoAval = document.getElementById('avaliacoes');
+if (AVALIACOES?.itens?.length) {
+  secaoAval.innerHTML = `
+    <div class="container">
+      <div class="secao-cabecalho centro">
+        ${estrelas(5)}
+        <h2>${esc(AVALIACOES.titulo)}</h2>
+        <p>
+          Loja <b>${esc(AVALIACOES.nota)} estrelas</b> ${esc(AVALIACOES.subtitulo)}.
+          ${AVALIACOES.link
+            ? `<a class="link-marca" href="${esc(AVALIACOES.link)}" target="_blank" rel="noopener">Veja aqui!</a>`
+            : ''}
+        </p>
+      </div>
+
+      <div class="carrossel">
+        <button class="carrossel-seta" data-dir="-1" aria-label="Anterior">‹</button>
+        <div class="carrossel-trilho" id="trilho-aval">
+          ${AVALIACOES.itens.map(cardAvaliacao).join('')}
+        </div>
+        <button class="carrossel-seta" data-dir="1" aria-label="Próximo">›</button>
+      </div>
+    </div>`;
+
+  // Setas rolam o trilho; no celular o dedo arrasta e o snap alinha os cards.
+  const trilho = document.getElementById('trilho-aval');
+  secaoAval.querySelectorAll('.carrossel-seta').forEach((b) => {
+    b.onclick = () => {
+      const card = trilho.querySelector('.card-avaliacao');
+      const passo = card ? card.offsetWidth + 16 : trilho.clientWidth * 0.8;
+      trilho.scrollBy({ left: passo * Number(b.dataset.dir), behavior: 'smooth' });
+    };
+  });
+} else {
+  secaoAval.remove();
+}
+
+// --- grupo VIP do WhatsApp --------------------------------------------
+const secaoVip = document.getElementById('grupo-vip');
+const temLink = !!GRUPO_VIP?.url;
+
+if (GRUPO_VIP) {
+  if (GRUPO_VIP.imagem) {
+    const url = new URL(GRUPO_VIP.imagem, location.href).href;
+    secaoVip.style.backgroundImage =
+      `linear-gradient(rgba(10,10,12,.72), rgba(10,10,12,.82)), url("${url}")`;
+    secaoVip.classList.add('com-imagem');
+  }
+
+  // Sem o link de convite, o botão fica inerte e avisa o que falta — assim a
+  // faixa pode ser vista na pré-visualização sem virar um clique que não leva
+  // a lugar nenhum se o site for publicado antes de configurar.
+  const acao = temLink
+    ? `<a class="btn-vip" href="${esc(GRUPO_VIP.url)}" target="_blank" rel="noopener">
+         ${iconeWhats()} ${esc(GRUPO_VIP.botao || 'Entrar no grupo')}
+       </a>`
+    : `<span class="btn-vip inerte">${iconeWhats()} ${esc(GRUPO_VIP.botao || 'Entrar no grupo')}</span>
+       <p class="vip-pendente">Falta o link de convite do grupo — preencha <code>GRUPO_VIP.url</code> no config.js</p>`;
+
+  secaoVip.innerHTML = `
+    <div class="container vip-inner">
+      ${GRUPO_VIP.chapeu ? `<span class="vip-chapeu">${esc(GRUPO_VIP.chapeu)}</span>` : ''}
+      <h2>${esc(GRUPO_VIP.titulo)}</h2>
+      ${GRUPO_VIP.texto ? `<p>${esc(GRUPO_VIP.texto)}</p>` : ''}
+      ${acao}
+    </div>`;
+} else {
+  secaoVip.remove();
 }
 
 montarRodape();

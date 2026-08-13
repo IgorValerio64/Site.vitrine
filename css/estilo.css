@@ -66,10 +66,15 @@ h1, h2, h3 { margin: 0; }
 .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 18px; }
 
 /* ---------------------------------------------------------------- TOPO */
-header {
+/* Só o cabeçalho do site é grudado. A regra é presa ao #topo de propósito:
+   valendo para toda tag <header>, qualquer cabeçalho dentro de um card
+   também viraria barra fixa e sairia flutuando ao rolar a página. */
+header#topo {
   background: var(--card);
   border-bottom: 1px solid var(--borda);
   position: sticky; top: 0; z-index: 30;
+  /* relative para o painel do mega menu se posicionar a partir daqui */
+  position: -webkit-sticky;
   transition: transform .32s ease;
   will-change: transform;
   margin-bottom: -1px;   /* fecha a fresta (1px) que mostrava o fundo abaixo */
@@ -77,7 +82,7 @@ header {
 
 /* Auto-hide: o cabeçalho sai da tela ao rolar pra baixo e volta ao rolar pra
    cima. NÃO vale na página de produtos, onde o topo continua à vista. */
-body.nav-oculto:not(.pagina-produtos) header { transform: translateY(-100%); }
+body.nav-oculto:not(.pagina-produtos) header#topo { transform: translateY(-100%); }
 
 /* Página de produtos: header e categorias ficam; só a busca recolhe suave ao
    rolar pra baixo. Colapso animado (sem mover a barra) — não treme a página. */
@@ -123,6 +128,154 @@ img.logo {
 }
 .menu a:hover { color: var(--texto); }
 .menu a.ativo { color: var(--marca); border-bottom-color: var(--marca); }
+
+/* ---------------------------------------------------------------- IDADE */
+/* Cortina de verificação de idade: cobre tudo antes de qualquer conteúdo. */
+html.idade-travado, html.idade-travado body { overflow: hidden; }
+
+.idade {
+  position: fixed; inset: 0; z-index: 999;
+  background: #000;
+  display: grid; place-items: center;
+  padding: 28px 20px;
+  overflow-y: auto;
+  transition: opacity .25s ease;
+}
+.idade.saindo { opacity: 0; pointer-events: none; }
+
+.idade-caixa { text-align: center; max-width: 620px; }
+
+.idade-logo {
+  height: 120px; width: auto; margin: 0 auto 40px;
+  object-fit: contain;
+}
+.idade-marca {
+  font-size: 30px; font-weight: 800; color: var(--marca);
+  margin-bottom: 40px; letter-spacing: -.02em;
+}
+
+.idade h1 {
+  font-size: clamp(19px, 3.4vw, 26px); font-weight: 800;
+  color: #fff; text-transform: uppercase; letter-spacing: .02em;
+  margin-bottom: 26px;
+}
+.idade h2 {
+  font-size: clamp(18px, 3.2vw, 25px); font-weight: 800;
+  color: #fff; text-transform: uppercase; letter-spacing: .02em;
+  margin-bottom: 38px;
+}
+
+.idade-botoes { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.idade-btn {
+  min-width: 132px;
+  background: var(--marca); color: #fff;
+  border: 0; border-radius: 4px; cursor: pointer;
+  font-family: inherit; font-weight: 800; font-size: 14px;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 14px 28px;
+  transition: filter .15s, transform .1s;
+}
+.idade-btn:hover { filter: brightness(1.15); }
+.idade-btn:active { transform: scale(.97); }
+
+.idade-aviso {
+  margin: 42px auto 0; max-width: 460px;
+  color: #cfcfd2; font-size: 12.5px; font-weight: 700;
+  line-height: 1.9; text-transform: uppercase; letter-spacing: .04em;
+}
+
+.idade-negado {
+  color: var(--marca) !important;
+  font-size: clamp(15px, 2.6vw, 19px) !important;
+  line-height: 1.7; text-transform: none !important; margin-bottom: 0 !important;
+}
+
+@media (max-width: 780px) {
+  .idade-logo { height: 88px; margin-bottom: 30px; }
+  .idade-botoes { flex-direction: column; }
+  .idade-btn { width: 100%; }
+  .idade-aviso { margin-top: 32px; }
+}
+
+/* ---------------------------------------------------------------- MEGA MENU */
+/* Barra de departamentos abaixo da marca. Cada botão abre um painel de
+   largura total com os grupos, marcas e calibres. */
+.mega {
+  display: flex; gap: 4px; flex-wrap: wrap;
+  padding: 0 18px 8px;
+  max-width: 1120px; margin: 0 auto;
+}
+
+.mega-botao {
+  background: none; border: 0; cursor: pointer; font-family: inherit;
+  color: var(--suave); font-weight: 700; font-size: 13px;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 8px 14px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: background .12s, color .12s;
+}
+.mega-botao:hover { color: var(--texto); }
+.mega-botao.aberto { background: var(--marca); color: #fff; }
+.mega-chev { font-size: 11px; opacity: .8; }
+.mega-botao.aberto .mega-chev { transform: rotate(180deg); }
+
+/* O painel sai do fluxo e cobre a largura da tela, como no site de referência. */
+.mega-painel {
+  position: absolute; left: 0; right: 0; top: 100%;
+  background: var(--card);
+  border-top: 1px solid var(--borda);
+  border-bottom: 1px solid var(--borda);
+  box-shadow: var(--sombra-alta);
+  max-height: 70vh; overflow-y: auto;
+  z-index: 40;
+}
+/* Os grupos ficam SEMPRE lado a lado. Com quebra de linha, "Rifles" caía
+   sozinho embaixo e a leitura se perdia. Em tela estreita, o painel rola na
+   horizontal em vez de empilhar. O painel é mais largo que o container do
+   site justamente para caber os 4 grupos de Armas Longas. */
+.mega-painel-inner {
+  display: flex; gap: 0; flex-wrap: nowrap;
+  max-width: 1440px;
+  overflow-x: auto;
+  padding-top: 30px; padding-bottom: 34px;
+  scrollbar-width: thin;
+}
+
+/* Cada grupo tem folga própria e uma linha separando do anterior — sem isso
+   as colunas de marcas e calibres de grupos vizinhos se confundem. */
+.mega-grupo { padding: 2px 36px; flex: none; }
+.mega-grupo:first-child { padding-left: 0; }
+.mega-grupo + .mega-grupo { border-left: 1px solid var(--borda); }
+
+.mega-grupo h3 { font-size: 17px; font-weight: 700; margin-bottom: 20px; }
+.mega-grupo h3 a:hover { color: var(--marca); }
+
+.mega-colunas { display: flex; gap: 38px; }
+.mega-coluna { min-width: 108px; }
+.mega-coluna-t {
+  display: block; font-size: 13px; font-weight: 700;
+  margin-bottom: 14px; color: var(--texto);
+}
+.mega-coluna ul { list-style: none; margin: 0; padding: 0; }
+.mega-coluna li { margin-bottom: 9px; }
+.mega-coluna a {
+  color: var(--suave); font-size: 12.5px; letter-spacing: .03em;
+  text-transform: uppercase;
+  transition: color .12s;
+}
+.mega-coluna a:hover { color: var(--marca); }
+
+/* ---------------------------------------------------------------- FILTRO ATIVO */
+.filtro-ativo {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-top: 12px;
+}
+.filtro-tag {
+  background: var(--card); border: 1px solid var(--marca); color: var(--texto);
+  padding: 5px 12px; border-radius: 999px; font-size: 12.5px;
+}
+.filtro-limpar { color: var(--suave); font-size: 12.5px; font-weight: 700; }
+.filtro-limpar:hover { color: var(--marca); }
 
 /* ---------------------------------------------------------------- BOTÕES */
 /* Botões de WhatsApp dentro do conteúdo (topo, cards, rodapé): cor da marca
@@ -347,6 +500,122 @@ img.logo {
 .conta-link { display: inline-block; background: none; border: 0; color: var(--suave); font-weight: 700; font-size: 13.5px; cursor: pointer; margin-top: 16px; font-family: inherit; text-decoration: underline; padding: 0; }
 .conta-link:hover { color: var(--texto); }
 
+/* ---------------------------------------------------------------- AVALIAÇÕES */
+.avaliacoes { padding: 10px 0 60px; }
+.secao-cabecalho.centro { text-align: center; margin-bottom: 26px; }
+.secao-cabecalho.centro p { max-width: 620px; margin-left: auto; margin-right: auto; }
+
+.estrelas { color: #f5b301; letter-spacing: 2px; font-size: 15px; line-height: 1; }
+.secao-cabecalho.centro .estrelas { font-size: 20px; display: block; margin-bottom: 8px; }
+.link-marca { color: var(--marca); font-weight: 700; }
+.link-marca:hover { text-decoration: underline; }
+
+/* Carrossel por rolagem nativa com scroll-snap: no celular o dedo arrasta e
+   os cards se alinham sozinhos; no computador as setas rolam o trilho.
+   Sem biblioteca e sem estado para manter. */
+.carrossel { display: flex; align-items: center; gap: 8px; }
+
+.carrossel-trilho {
+  display: flex; gap: 16px; overflow-x: auto; flex: 1;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 4px;
+}
+.carrossel-trilho::-webkit-scrollbar { display: none; }
+
+.carrossel-seta {
+  flex: none; width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid var(--borda); background: var(--card); color: var(--texto);
+  font-size: 22px; line-height: 1; cursor: pointer;
+  display: grid; place-items: center;
+  transition: background .12s, border-color .12s;
+}
+.carrossel-seta:hover { border-color: var(--marca); color: var(--marca); }
+
+/* Formato deitado: mais largo que alto. A largura maior também deixa o
+   depoimento respirar em menos linhas. */
+.card-avaliacao {
+  flex: 0 0 clamp(280px, 86vw, 400px);
+  scroll-snap-align: start;
+  background: var(--card); border: 1px solid var(--borda);
+  border-radius: var(--raio); box-shadow: var(--sombra);
+  padding: 18px 20px;
+  display: flex; flex-direction: column; gap: 11px;
+}
+.card-avaliacao .ava-topo { display: flex; align-items: center; gap: 11px; }
+.card-avaliacao .ava-quem strong { display: block; font-size: 14.5px; margin-bottom: 3px; }
+.ava-linha { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ava-quando { color: var(--suave); font-size: 11.5px; }
+.ava-selo {
+  font-size: 10px; font-weight: 700; letter-spacing: .04em;
+  color: var(--suave); border: 1px solid var(--borda);
+  padding: 1px 6px; border-radius: 999px;
+}
+
+/* Depoimentos têm tamanhos bem diferentes. Os cards mantêm a mesma altura e
+   o texto longo rola dentro do próprio card, para a fileira não ficar torta. */
+.card-avaliacao p {
+  margin: 0; color: var(--suave); font-size: 13.5px; line-height: 1.55;
+  max-height: 105px; overflow-y: auto;
+  scrollbar-width: thin;
+}
+/* Altura fixa: os depoimentos variam de 107 a 319 caracteres, e sem isso a
+   fileira ficaria com cards de tamanhos diferentes. */
+.card-avaliacao { min-height: 200px; }
+
+.ava-foto, .ava-inicial {
+  width: 42px; height: 42px; border-radius: 50%; flex: none;
+  object-fit: cover;
+}
+.ava-inicial {
+  display: grid; place-items: center;
+  background: var(--marca); color: #fff;
+  font-weight: 800; font-size: 17px; text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------- GRUPO VIP */
+.grupo-vip {
+  background: var(--card);
+  border-top: 1px solid var(--borda); border-bottom: 1px solid var(--borda);
+  padding: 60px 0;
+  background-size: cover; background-position: center;
+}
+.grupo-vip.com-imagem { border-color: transparent; }
+
+.vip-inner { text-align: center; }
+.vip-chapeu {
+  display: block; color: var(--suave);
+  font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.grupo-vip h2 {
+  font-size: clamp(26px, 5vw, 40px); font-weight: 800;
+  letter-spacing: .01em; text-transform: uppercase;
+}
+.grupo-vip p { margin: 12px 0 0; color: var(--suave); font-size: 15px; }
+
+.btn-vip {
+  display: inline-flex; align-items: center; gap: 10px; justify-content: center;
+  margin-top: 24px; padding: 14px 30px; border-radius: 999px;
+  background: var(--marca); color: #fff;
+  font-weight: 800; font-size: 15px; letter-spacing: .02em;
+  transition: filter .15s, transform .1s;
+}
+.btn-vip:hover { filter: brightness(1.12); }
+.btn-vip:active { transform: scale(.97); }
+.btn-vip svg { width: 20px; height: 20px; }
+
+/* Estado de pendência: aparece só enquanto falta o link do grupo. */
+.btn-vip.inerte { opacity: .45; cursor: not-allowed; }
+.btn-vip.inerte:hover { filter: none; }
+.vip-pendente {
+  margin-top: 12px !important; font-size: 12.5px !important; color: var(--marca) !important;
+}
+.vip-pendente code {
+  background: rgba(255,255,255,.08); padding: 1px 6px; border-radius: 5px;
+  font-size: 12px;
+}
+
 /* ---------------------------------------------------------------- FILTROS */
 /* O topo é grudado, então a barra de filtros precisa parar logo abaixo dele.
    A altura vem medida pelo JS (--altura-topo): fixar um número aqui quebraria
@@ -549,6 +818,31 @@ footer a:hover { color: var(--marca); }
   .bloco-sobre p { font-size: 14.5px; }
   .numeros { gap: 24px; }
   .numero strong { font-size: 24px; }
+
+  /* No celular as setas só ocupam espaço: o dedo arrasta o trilho. */
+  .carrossel-seta { display: none; }
+  .carrossel { gap: 0; }
+  .card-avaliacao { padding: 16px 15px; }
+  .grupo-vip { padding: 44px 0; }
+  .btn-vip { width: 100%; }
+
+  /* No celular o mega vira uma faixa que rola na horizontal, e o painel
+     ocupa a largura toda com as colunas empilhadas. */
+  .mega { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 6px; }
+  .mega::-webkit-scrollbar { display: none; }
+  .mega-botao { flex: none; font-size: 12px; padding: 7px 12px; }
+  /* No celular não há largura para lado a lado: empilha, e a linha vertical
+     vira horizontal. */
+  .mega-painel-inner {
+    flex-direction: column; flex-wrap: wrap; gap: 0;
+    overflow-x: visible; padding-top: 22px;
+  }
+  .mega-colunas { gap: 28px; }
+  .mega-grupo { padding: 20px 0; min-width: 0; }
+  .mega-grupo:first-child { padding-top: 0; }
+  .mega-grupo + .mega-grupo {
+    border-left: 0; border-top: 1px solid var(--borda);
+  }
 
   .grade-lojas { grid-template-columns: 1fr; }
   .card-loja { flex-wrap: wrap; padding: 18px; gap: 14px; }

@@ -171,6 +171,26 @@ export const MENSAGEM = (produto, precoFormatado) =>
 
 `\n` quebra a linha e `*texto*` fica em **negrito** no WhatsApp.
 
+## Área do cliente (Supabase)
+
+O login fica em `entrar.html` e a área em `area.html`, com o Supabase cuidando
+da autenticação. O cadastro entra **pendente**: você libera trocando `approved`
+para `true` em Supabase → Table Editor → `profiles`.
+
+- **`supabase-setup.sql`** — rode uma vez para criar a tabela, a segurança (RLS)
+  e o gatilho que cria o perfil.
+- **`supabase-email-cadastro.sql`** — opcional: faz chegar um **e-mail para
+  você** a cada novo cadastro. Sem ele, só dá para saber olhando o painel.
+
+O aviso por e-mail usa o [Resend](https://resend.com) (3.000 e-mails/mês
+grátis), chamado pelo próprio banco via `pg_net`. O Supabase sozinho só manda
+e-mail para o *usuário* (confirmação, troca de senha) — não existe "avisar o
+administrador" nativo.
+
+> O envio fica dentro de um bloco protegido: se o serviço de e-mail falhar, o
+> **cadastro é concluído do mesmo jeito**. Perder um cliente por causa de um
+> aviso interno seria o pior dos dois erros.
+
 ## Ver o site na sua máquina
 
 Não abra o `index.html` com dois cliques: o navegador bloqueia módulos

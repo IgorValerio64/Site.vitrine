@@ -6,21 +6,59 @@ import { esc, dinheiro, linkWhats, iconeWhats, midia, montarTopo, montarRodape }
 montarTopo('produtos');
 montarRodape();
 
-const estado = { busca: '', categoria: 'todas' };
+// Filtros vindos do menu de departamentos, pela URL:
+//   produtos.html?tipo=Pistolas   ?marca=GLOCK   ?calibre=.9MM
+// Ficar na URL permite recarregar a página e compartilhar o link filtrado.
+const params = new URLSearchParams(location.search);
+const estado = {
+  busca: params.get('busca') || '',
+  categoria: 'todas',
+  tipo: params.get('tipo') || '',
+  marca: params.get('marca') || '',
+  calibre: params.get('calibre') || '',
+};
 
 const categorias = () =>
   ['todas', ...new Set(PRODUTOS.map((p) => p.categoria).filter(Boolean))];
+
+// Comparação frouxa: o menu escreve ".9MM" e o produto pode ter ".9mm".
+const igual = (a, b) =>
+  String(a || '').trim().toLowerCase() === String(b || '').trim().toLowerCase();
+
+// Um produto pode ter mais de um calibre: aceita string ou lista.
+const contem = (campo, valor) =>
+  Array.isArray(campo) ? campo.some((v) => igual(v, valor)) : igual(campo, valor);
 
 function filtrados() {
   const termo = estado.busca.trim().toLowerCase();
   return PRODUTOS.filter((p) => {
     const naCategoria = estado.categoria === 'todas' || p.categoria === estado.categoria;
+    const noTipo = !estado.tipo || contem(p.tipo, estado.tipo) || igual(p.categoria, estado.tipo);
+    const naMarca = !estado.marca || contem(p.marca, estado.marca);
+    const noCalibre = !estado.calibre || contem(p.calibre, estado.calibre);
     const noTermo = !termo
       || p.nome.toLowerCase().includes(termo)
       || (p.descricao || '').toLowerCase().includes(termo)
       || (p.codigo || '').toLowerCase().includes(termo);
-    return naCategoria && noTermo;
+    return naCategoria && noTipo && naMarca && noCalibre && noTermo;
   });
+}
+
+// Mostra o filtro ativo com um X para limpar — sem isso, quem chega pelo menu
+// vê poucos produtos e não entende que há um filtro aplicado.
+function avisoFiltroHTML() {
+  const ativos = [
+    estado.tipo && ['Tipo', estado.tipo],
+    estado.marca && ['Marca', estado.marca],
+    estado.calibre && ['Calibre', estado.calibre],
+  ].filter(Boolean);
+
+  if (!ativos.length) return '';
+  return `
+    <div class="filtro-ativo">
+      ${ativos.map(([r, v]) => `<span class="filtro-tag">${r}: <b>${esc(v)}</b></span>`).join('')}
+      <a class="filtro-limpar" href="produtos.html">limpar filtro ✕</a>
+    </div>`;
 }
 
 const cardProduto = (p, idx) => {
@@ -110,10 +148,14 @@ function abrirProduto(p) {
 function render() {
   const lista = filtrados();
 
+  const oQueBuscou = estado.busca
+    || [estado.tipo, estado.marca, estado.calibre].filter(Boolean).join(' · ');
+
   document.getElementById('grade').innerHTML = lista.length
     ? lista.map((p, i) => cardProduto(p, i)).join('')
     : `<p class="vazio">Nenhum produto encontrado para
-         <strong>${esc(estado.busca)}</strong>.</p>`;
+         <strong>${esc(oQueBuscou)}</strong>.<br>
+         <a class="link-marca" href="produtos.html">Ver o catálogo completo</a></p>`;
 
   document.getElementById('contador').textContent =
     `${lista.length} ${lista.length === 1 ? 'produto' : 'produtos'}`;
@@ -134,8 +176,9 @@ function render() {
 
 document.getElementById('filtros').innerHTML = `
   <div class="container">
-    <input id="busca" class="busca" type="search"
+    <input id="busca" class="busca" type="search" value="${esc(estado.busca)}"
            placeholder="Buscar produto..." autocomplete="off" />
+    ${avisoFiltroHTML()}
     <div class="chips">
       ${categorias().map((c) => `
         <button class="chip" data-cat="${esc(c)}">
