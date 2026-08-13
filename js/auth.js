@@ -22,12 +22,12 @@ export async function getPerfil() {
 }
 
 // Cadastro: cria o usuário no Auth e (via trigger no banco) um perfil pendente.
-// Nome e telefone vão nos metadados; o trigger copia pra tabela profiles.
-export function cadastrar({ nome, telefone, email, senha }) {
+// Nome, telefone e motivo vão nos metadados; o trigger copia pra tabela profiles.
+export function cadastrar({ nome, telefone, email, senha, motivo }) {
   return supa.auth.signUp({
     email,
     password: senha,
-    options: { data: { full_name: nome, phone: telefone } },
+    options: { data: { full_name: nome, phone: telefone, motivo } },
   });
 }
 

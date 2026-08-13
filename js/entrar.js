@@ -20,7 +20,12 @@ function render() {
           <div class="campo"><label>Nome completo</label>
             <input id="f_nome" class="input-conta" autocomplete="name" required /></div>
           <div class="campo"><label>Telefone / WhatsApp</label>
-            <input id="f_tel" class="input-conta" inputmode="tel" placeholder="(19) 99999-9999" /></div>` : ''}
+            <input id="f_tel" class="input-conta" inputmode="tel" placeholder="(19) 99999-9999" /></div>
+          <div class="campo"><label>O que traz você até a GunsCore?</label>
+            <textarea id="f_motivo" class="input-conta area-conta" rows="4" required
+              placeholder="Ex.: sou CAC e procuro munição .38, quero tirar meu registro de posse, tenho interesse numa pistola para defesa..."></textarea>
+            <span class="campo-dica">Isso ajuda a gente a te atender melhor e agiliza a análise da sua conta.</span>
+          </div>` : ''}
         <div class="campo"><label>E-mail</label>
           <input id="f_email" class="input-conta" type="email" autocomplete="email" required /></div>
         <div class="campo"><label>Senha</label>
@@ -55,8 +60,11 @@ async function enviar(e) {
     if (cad) {
       const nome = document.getElementById('f_nome').value.trim();
       const telefone = document.getElementById('f_tel').value.trim();
+      const motivo = document.getElementById('f_motivo').value.trim();
       if (senha.length < 6) throw new Error('A senha precisa de ao menos 6 caracteres.');
-      const { data, error } = await cadastrar({ nome, telefone, email, senha });
+      // Uma frase de nada não ajuda em nada na hora de aprovar a conta.
+      if (motivo.length < 10) throw new Error('Conte um pouco mais sobre o que você procura.');
+      const { data, error } = await cadastrar({ nome, telefone, email, senha, motivo });
       if (error) throw error;
       if (data.session) {
         // conta criada e já autenticada (pendente de aprovação) → área mostra o status

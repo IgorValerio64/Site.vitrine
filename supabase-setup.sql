@@ -12,9 +12,13 @@ create table if not exists public.profiles (
   full_name  text,
   phone      text,
   email      text,
+  motivo     text,                             -- o que a pessoa escreveu no cadastro
   approved   boolean not null default false,   -- você libera trocando pra true
   created_at timestamptz not null default now()
 );
+
+-- Para bancos criados antes do campo `motivo` existir.
+alter table public.profiles add column if not exists motivo text;
 
 -- 2. Segurança em nível de linha: cada pessoa só lê o PRÓPRIO perfil.
 alter table public.profiles enable row level security;
@@ -35,16 +39,21 @@ security definer
 set search_path = public
 as $$
 begin
-  insert into public.profiles (id, full_name, phone, email)
+  insert into public.profiles (id, full_name, phone, email, motivo)
   values (
     new.id,
     new.raw_user_meta_data->>'full_name',
     new.raw_user_meta_data->>'phone',
-    new.email
+    new.email,
+    new.raw_user_meta_data->>'motivo'
   );
   return new;
 end;
 $$;
+
+-- ATENÇÃO: se você usa o aviso por e-mail, rode o supabase-email-cadastro.sql
+-- DEPOIS deste arquivo. Ele redefine esta mesma função acrescentando o envio;
+-- rodar na ordem inversa faz o aviso parar de sair.
 
 drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
